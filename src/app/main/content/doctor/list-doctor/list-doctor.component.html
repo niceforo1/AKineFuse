@@ -1,0 +1,42 @@
+<div class="example-container mat-elevation-z8">
+    <div class="example-header">
+        <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+    </div>
+
+    <mat-table #table [dataSource]="dataSource">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.name}}</mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="lastName">
+            <mat-header-cell *matHeaderCellDef>Last Name</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.lastName}}</mat-cell>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="birthDate">
+            <mat-header-cell *matHeaderCellDef>Birth Date</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.birthDate | date: 'dd/MM/yyyy'}}</mat-cell>
+        </ng-container>
+
+        <!-- Color Column -->
+        <ng-container matColumnDef="gender">
+            <mat-header-cell *matHeaderCellDef>Gender</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.gender}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="data" (click)="asClick">
+            <mat-header-cell *matHeaderCellDef>Data</mat-header-cell>
+            <mat-cell *matCellDef="let element" ><button>{{element.data}}</button></mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;">{{row}}</mat-row>
+    </mat-table>
+</div>
