@@ -32,7 +32,7 @@ export class ListDoctorComponent implements OnInit {
     this._professionalService.getProfessional().subscribe( response  => {
       this.professionals = response;
       //this.dataSource = new MatTableDataSource(this.professionals.map(dato => {return  {...{dato}, action:'asd'}}));
-      this.dataSource = new MatTableDataSource(this.professionals.map(dato => {return Object.assign(dato, {'action':'puto'})}));
+      this.dataSource = new MatTableDataSource(this.professionals.map(dato => {return Object.assign(dato, {'action':'action'})}));
     },
     err => {
       this.messageClass = 'alert alert-danger alert-dismissible';
@@ -41,11 +41,14 @@ export class ListDoctorComponent implements OnInit {
     });
   }
 
-  deleteProfessional(id){
+  deleteProfessional(doctor, i){
+    //console.log(i, doctor)
     let result = confirm("¡Esta seguro que desea borrar el Licenciado seleccionado?");
     if(result) {
-      this._professionalService.deleteProfessional(id).subscribe(response => {
-        this.professionals.splice(this.professionals.indexOf(response), 1);
+      this._professionalService.deleteProfessional(doctor._id).subscribe(response => {
+        //this.professionals.splice(this.professionals.indexOf(response), 1);
+        this.dataSource.data.splice(i,1);
+        this.dataSource = new MatTableDataSource<Element>(this.dataSource.data);    
       },
       err => {
         this.messageClass = 'alert alert-danger alert-dismissible';
