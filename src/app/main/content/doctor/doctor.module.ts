@@ -7,7 +7,7 @@ import { ListDoctorComponent } from './list-doctor/list-doctor.component';
 
 const routes = [	
     {path     : 'add-doctor', component: AddDoctorComponent},
-    {path     : 'list-doctor', component: ListDoctorComponent}
+    {path     : 'list-doctors', component: ListDoctorComponent}
 ];
 
 @NgModule({

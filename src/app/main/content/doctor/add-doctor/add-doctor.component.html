@@ -70,6 +70,24 @@
                     </mat-form-field>
                 </div>
 
+                <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
+                    <mat-form-field fxFlex="50">
+                        <input matInput #addressStreet="ngModel" placeholder="Dirección" type="text" name="addressStreet" [(ngModel)]="professional.address.street">                       
+                    </mat-form-field>
+                    <mat-form-field fxFlex="50">
+                        <input matInput #email="ngModel" placeholder="Email" type="email" name="email" [(ngModel)]="professional.email">
+                    </mat-form-field>
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
+                    <mat-form-field fxFlex="50">
+                        <input matInput #professionalLicense="ngModel" placeholder="Licencia" type="text" name="professionalLicense" [(ngModel)]="professional.license">                       
+                    </mat-form-field>
+                    <mat-form-field fxFlex="50">
+                        <input matInput #professionalSpecialities="ngModel" placeholder="Especialidad" type="text" name="professionalSpecialities" [(ngModel)]="professional.specialities">
+                    </mat-form-field>
+                </div>
+
                 <button mat-raised-button type="button" color="accent" type="submit">
                     Finish
                 </button>

@@ -18,7 +18,7 @@ export class ListDoctorComponent implements OnInit {
   messageClass : string;
   professional : any;
   professionals: any;
-  displayedColumns = ['name','lastName','birthDate', 'gender', 'data'];
+  displayedColumns = ['name','lastName','birthDate', 'gender', 'action'];
   dataSource :any;
 
   constructor(private _professionalService: ProfessionalService, private router: Router) {
@@ -32,9 +32,7 @@ export class ListDoctorComponent implements OnInit {
     this._professionalService.getProfessional().subscribe( response  => {
       this.professionals = response;
       //this.dataSource = new MatTableDataSource(this.professionals.map(dato => {return  {...{dato}, action:'asd'}}));
-      this.dataSource = new MatTableDataSource(this.professionals.map(dato => {return Object.assign(dato, {'data':'puto'})}));
-      console.log(this.dataSource)
-
+      this.dataSource = new MatTableDataSource(this.professionals.map(dato => {return Object.assign(dato, {'action':'puto'})}));
     },
     err => {
       this.messageClass = 'alert alert-danger alert-dismissible';
@@ -62,7 +60,11 @@ export class ListDoctorComponent implements OnInit {
       this.dataSource.filter = filterValue;
   }
 
-  asClick(){
-    console.log('puto')
+  asClick(doctor, i){
+    //this.professionals.splice(0, 1);
+    console.log(doctor, i);
+    this.dataSource.data.splice(i,1);
+    this.dataSource = new MatTableDataSource<Element>(this.dataSource.data);    
+    console.log(this.dataSource.data)
   }
 }

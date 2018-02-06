@@ -1,4 +1,6 @@
-import {Phone} from './phone';
+import {Phone} from './Phone';
+import {Address} from './Address';
+import {SocialInsurance} from './SocialInsurance';
 
 export class Professional {
   public _id: string;
@@ -12,10 +14,9 @@ export class Professional {
 
   public license: string;
   public specialities: string;
+  public address: Address;
   public phones : Phone;
+  public socialInsurance : SocialInsurance[];
   constructor() {
-    this.phones = new Phone();
-    this.phones.main = true;
-    this.phones.type = "Celular";
   }
 }
