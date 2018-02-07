@@ -24,14 +24,14 @@
                     <mat-form-field fxFlex="50">
                     	<input matInput placeholder="Nombre" #name="ngModel" type="text" name="name" [(ngModel)]="professional.name" required>
                         <mat-error *ngIf="!name.valid && name.touched">
-                            Nombre es obligatorio!
+                            El nombre es obligatorio!
                         </mat-error>
                     </mat-form-field>
 
                     <mat-form-field fxFlex="50">
                         <input matInput #lastName="ngModel" placeholder="Apellido" type="text" name="lastName" [(ngModel)]="professional.lastName" required>
                         <mat-error *ngIf="!lastName.valid && lastName.touched">
-                            Apellido es obligatorio!
+                            El apellido es obligatorio!
                         </mat-error>
                     </mat-form-field>
                 </div>
