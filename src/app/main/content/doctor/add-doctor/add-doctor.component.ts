@@ -52,7 +52,7 @@ export class AddDoctorComponent implements OnInit {
   }
 
   ngOnInit() {
-   
+
   }
 
   onSubmit() {
@@ -68,6 +68,7 @@ export class AddDoctorComponent implements OnInit {
         this.messageClass = 'alert alert-danger alert-dismissible';
         this.message = 'Ya se encuentra registrado un doctor con el documento ingresado.'
       } else {
+
         this._professionalService.saveProfessional(this.professional).subscribe(data => {
           this.messageClass = 'alert alert-success alert-dismissible';
           this.message = 'El profesional fue guardado correctamente.';

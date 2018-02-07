@@ -9,41 +9,41 @@
 
         <!-- Position Column -->
         <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.name}}</mat-cell>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="lastName">
-            <mat-header-cell *matHeaderCellDef>Last Name</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>Apellido</mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.lastName}}</mat-cell>
         </ng-container>
 
         <!-- Weight Column -->
         <ng-container matColumnDef="birthDate">
-            <mat-header-cell *matHeaderCellDef>Birth Date</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>Fecha de nacimiento</mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.birthDate | date: 'dd/MM/yyyy'}}</mat-cell>
         </ng-container>
 
         <!-- Color Column -->
         <ng-container matColumnDef="gender">
-            <mat-header-cell *matHeaderCellDef>Gender</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>Genero</mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.gender}}</mat-cell>
         </ng-container>
-        
+
         <ng-container matColumnDef="action">
-            <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>Eliminar/Editar</mat-header-cell>
             <mat-cell *matCellDef="let element; let i = index;" >
-                
+
                 <button (click)="deleteProfessional(element, i)" style="cursor: pointer;">
                     <mat-icon>delete_forever</mat-icon>
                 </button>
-                
+
                 <button [routerLink]="['/edit-doctors', element._id]" style="cursor: pointer;">
                     <mat-icon>mode_edit</mat-icon>
                 </button>
             </mat-cell>
-        </ng-container>       
+        </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;">{{row}}</mat-row>
