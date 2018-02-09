@@ -3,9 +3,11 @@
     <div id="fuse-main-content">
 
         <!-- TOOLBAR: Above -->
+        <!--
         <ng-container *ngIf="fuseSettings.layout.toolbar === 'above'">
             <fuse-toolbar class="above" [ngClass]="fuseSettings.colorClasses.toolbar"></fuse-toolbar>
         </ng-container>
+        -->
         <!-- / TOOLBAR: Above -->
 
         <!-- NAVBAR: Top -->
@@ -28,9 +30,11 @@
             <div class="content-wrapper">
 
                 <!-- TOOLBAR: Below -->
+                <!--
                 <ng-container *ngIf="fuseSettings.layout.toolbar === 'below'">
                     <fuse-toolbar class="below" [ngClass]="fuseSettings.colorClasses.toolbar"></fuse-toolbar>
                 </ng-container>
+                -->
                 <!-- / TOOLBAR: Below -->
 
                 <fuse-content></fuse-content>
@@ -71,4 +75,6 @@
 
 </mat-sidenav-container>
 
+<!--
 <fuse-theme-options></fuse-theme-options>
+-->

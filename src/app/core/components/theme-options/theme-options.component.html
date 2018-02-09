@@ -5,11 +5,11 @@
 <div class="theme-options-panel-overlay" #overlay [fxHide]="barClosed" [@fadeInOut]="!barClosed"></div>
 
 <div #panel class="theme-options-panel mat-white-bg mat-elevation-z8">
-
     <button mat-icon-button class="close-button" (click)="closeBar()">
         <mat-icon>close</mat-icon>
     </button>
 
+    
     <div class="theme-options-panel-inner" fxLayout="column" fxLayoutAlign="start start">
 
         <h3>Navigation:</h3>
@@ -101,5 +101,6 @@
             </mat-select>
         </mat-form-field>
     </div>
-
+    
 </div>
+ 

@@ -1,0 +1,105 @@
+<div id="forms" class="page-layout simple fullwidth" fxLayout="column" fusePerfectScrollbar>
+
+    <!-- HEADER -->
+    <div class="header mat-accent-bg p-24 h-160" fxLayout="row" fxLayoutAlign="start center">
+        <div fxLayout="column" fxLayoutAlign="center start">
+            <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="secondary-text s-16">home</mat-icon>
+                <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+                <span class="secondary-text">Licenciados</span>
+            </div>
+            <div class="h1 mt-16">{{title}}</div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content p-24">
+      <div fxLayout="column" fxLayoutAlign="start start" fxLayout.gt-md="row">
+            <form class="mat-white-bg mat-elevation-z4 p-24 mr-24 mb-24" fxLayout="column" fxLayoutAlign="start"
+                  fxFlex="1 0 auto" #form="ngForm" (ngSubmit)="onSubmit()">
+
+                <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+                    <mat-form-field fxFlex="50">
+                      <input matInput placeholder="Nombre" #name="ngModel" type="text" name="name" [(ngModel)]="patient.name" required>                   
+                        <mat-error *ngIf="!name.valid && name.touched">
+                            El nombre es obligatorio!
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="50">                      
+                        <input matInput #lastName="ngModel" placeholder="Apellido" type="text" name="lastName" [(ngModel)]="patient.lastName" required>
+                        <mat-error *ngIf="!lastName.valid && lastName.touched">
+                            El apellido es obligatorio!
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
+                  <mat-form-field fxFlex="25">
+                          <input matInput placeholder="Documento" #id="ngModel" type="number" name="id" [(ngModel)]="patient.id" minlength="6" maxlength="9" required>
+                          <mat-error *ngIf="!id.valid && id.touched">El documento es obligatorio!</mat-error>
+                          <mat-error *ngIf="id.number">El documento permite solo números</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="25">
+                        <input matInput placeholder="Teléfono" #phonesNumber="ngModel" type="text" name="phonesNumber" type="text" [(ngModel)]="patient.phones.number" required>
+                        <mat-error *ngIf="!phonesNumber.valid && phonesNumber.touched">
+                            El teléfono es obligatorio!
+                        </mat-error>
+                    </mat-form-field>
+                  <mat-form-field fxFlex="25">
+                      <input matInput [matDatepicker]="birthdayDatePicker" name="patient.birthDate" placeholder="Fecha Nacimiento" #birthdayDatePicker="ngModel" [(ngModel)]="patient.birthDate">
+                      <mat-datepicker-toggle matSuffix [for]="birthdayDatePicker"></mat-datepicker-toggle>
+                      <mat-datepicker #birthdayDatePicker></mat-datepicker>
+                  </mat-form-field>
+
+                     <mat-form-field fxFlex="25">
+                        <mat-select placeholder="Genero" #gender="ngModel" name="gender" [(ngModel)]="patient.gender">
+                            <mat-option [value]="''">
+                                Seleccionar genero
+                            </mat-option>
+                            <mat-option [value]="'m'">
+                                Masculino
+                            </mat-option>
+                            <mat-option [value]="'f'">
+                                Femenino
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
+                    <mat-form-field fxFlex="50">
+                        <input matInput #addressStreet="ngModel" placeholder="Dirección" type="text" name="addressStreet" [(ngModel)]="patient.address.street">
+                    </mat-form-field>
+                    <mat-form-field fxFlex="50">
+                        <input matInput #email="ngModel" placeholder="Email" type="email" name="email" [(ngModel)]="patient.email">
+                    </mat-form-field>
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
+                  <mat-form-field fxFlex="50">
+                      <mat-select placeholder="Obra Social" #socialInsuranceId="ngModel" name="socialInsuranceId" [(ngModel)]="patient.socialInsurance._id">
+                          <mat-option [value]="''">
+                              Seleccionar Obra Social
+                          </mat-option>
+                          <mat-option *ngFor="let socialInsurance of socialInsurances" value="{{socialInsurance._id}}">
+                            {{socialInsurance.name}}
+                          </mat-option>                            
+                      </mat-select>
+                  </mat-form-field>
+                    <mat-form-field fxFlex="50">                      
+                        <input matInput #socialInsurance.number="ngModel" placeholder="Número" type="text" name="socialInsurance.number" [(ngModel)]="patient.socialInsurance.number">
+                    </mat-form-field>
+                </div>                
+
+                <button mat-raised-button type="button" color="accent" [disabled]="!form.form.valid" type="submit">
+                    Guardar
+                </button>
+            </form>
+       </div>
+   </div>
+    <!-- / CONTENT -->
+</div>

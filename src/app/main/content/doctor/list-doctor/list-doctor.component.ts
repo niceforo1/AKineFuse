@@ -46,7 +46,6 @@ export class ListDoctorComponent implements OnInit {
     let result = confirm("¡Esta seguro que desea borrar el Licenciado seleccionado?");
     if(result) {
       this._professionalService.deleteProfessional(doctor._id).subscribe(response => {
-        //this.professionals.splice(this.professionals.indexOf(response), 1);
         this.dataSource.data.splice(i,1);
         this.dataSource = new MatTableDataSource<Element>(this.dataSource.data);    
       },
@@ -57,17 +56,18 @@ export class ListDoctorComponent implements OnInit {
       });
     }
   }
+  
   applyFilter(filterValue: string){
       filterValue = filterValue.trim(); // Remove whitespace
       filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
       this.dataSource.filter = filterValue;
   }
 
-  asClick(doctor, i){
+  /*asClick(doctor, i){
     //this.professionals.splice(0, 1);
     console.log(doctor, i);
     this.dataSource.data.splice(i,1);
     this.dataSource = new MatTableDataSource<Element>(this.dataSource.data);    
     console.log(this.dataSource.data)
-  }
+  }*/
 }

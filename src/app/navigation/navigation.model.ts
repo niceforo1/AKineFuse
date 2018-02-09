@@ -8,27 +8,49 @@ export class FuseNavigationModel implements FuseNavigationModelInterface
     {
         this.model = [
             {
-                'id'      : 'applications',
-                'title'   : 'Applications',
-                'translate': 'NAV.APPLICATIONS',
+                'id'      : 'licenciado',
+                'title'   : 'Licenciados',
+                'translate': 'Licenciados',
                 'type'    : 'group',
                 'children': [
                     {
-                        'id'   : 'sample',
-                        'title': 'Sample',
-                        'translate': 'NAV.SAMPLE.TITLE',
+                        'id'   : 'addDoctor',
+                        'title': 'Agregar Licenciado',
+                        'translate': 'Agregar Licenciado',
                         'type' : 'item',
-                        'icon' : 'email',
-                        'url'  : '/sample',
-                        'badge': {
-                            'title': 25,
-                            'translate': 'NAV.SAMPLE.BADGE',
-                            'bg'   : '#F44336',
-                            'fg'   : '#FFFFFF'
-                        }
+                        'url'  : '/add-doctor'                        
+                    },
+                    {
+                        'id'   : 'listDoctors',
+                        'title': 'Listar Licenciados',
+                        'translate': 'Listar Licenciados',
+                        'type' : 'item',
+                        'url'  : '/list-doctors'                        
                     }
                 ]
-            }
+            },
+            {
+                'id'      : 'patient',
+                'title'   : 'Pacientes',
+                'translate': 'Pacientes',
+                'type'    : 'group',
+                'children': [
+                    {
+                        'id'   : 'addPatient',
+                        'title': 'Agregar Paciente',
+                        'translate': 'Agregar Paciente',
+                        'type' : 'item',
+                        'url'  : '/add-patient'                        
+                    },
+                    {
+                        'id'   : 'listPatients',
+                        'title': 'Listar Pacientes',
+                        'translate': 'Listar Pacientes',
+                        'type' : 'item',
+                        'url'  : '/list-patients'                        
+                    }
+                ]
+            },
         ];
     }
 }

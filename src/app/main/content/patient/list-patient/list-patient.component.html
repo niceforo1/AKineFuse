@@ -1,0 +1,54 @@
+<div class="page-layout simple fullwidth" fxLayout="column" fusePerfectScrollbar>
+
+    <!-- HEADER -->
+    <div class="header mat-accent-bg p-24 h-160" fxLayout="row" fxLayoutAlign="start center">
+        <div fxLayout="column" fxLayoutAlign="center start">
+            <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="secondary-text s-16">home</mat-icon>
+                <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+                <span class="secondary-text">Pacientes</span>
+            </div>
+            <div class="h1 mt-16">Lista Pacientes</div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <div class="example-header">
+        <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+    </div>
+
+    <mat-table #table [dataSource]="dataSource">
+      <!-- Position Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.lastName}}, {{element.name}}<br/>DNI: {{element.id}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="contact">
+        <mat-header-cell *matHeaderCellDef>Contacto</mat-header-cell>
+        <mat-cell *matCellDef="let element"><mat-icon>mail_outline</mat-icon>{{element.email}}<br><mat-icon>phone</mat-icon>{{element.phones.number}}</mat-cell>
+      </ng-container>  
+      <ng-container matColumnDef="socialInsurance">
+        <mat-header-cell *matHeaderCellDef>Obra Social</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.socialInsurance._id.name}} / {{element.socialInsurance.number}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef>Eliminar/Editar</mat-header-cell>
+        <mat-cell *matCellDef="let element; let i = index;" >
+          <button (click)="deletePatient(element, i)" style="cursor: pointer;">
+            <mat-icon>delete_forever</mat-icon>
+          </button>
+
+          <button [routerLink]="['/edit-patient', element._id]" style="cursor: pointer;">
+            <mat-icon>mode_edit</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">{{row}}</mat-row>
+    </mat-table>
+</div>
