@@ -22,6 +22,7 @@ export class EditDoctorComponent implements OnInit {
   messageClass : string;
   professional : any;
   phone : Phone;
+  id_doctor : string;
 
   constructor(private _professionalService: ProfessionalService, private _router: Router, private _activatedRoute: ActivatedRoute) {
     this.action = "Editar";
@@ -31,17 +32,18 @@ export class EditDoctorComponent implements OnInit {
     this.professional = new Professional();
     this.professional.phones = new Phone();
     this.professional.address = new Address();
+    this.id_doctor = null;
   }
 
   ngOnInit() {
     this.getProfessional();
   }
 
- 
+
  getProfessional(){
     this._activatedRoute.params.forEach((params:Params)=>{
-      let _id = params['id'];
-      this._professionalService.searchProfessional(_id).subscribe(response => {
+      this.id_doctor = params['id'];
+      this._professionalService.searchProfessional(this.id_doctor).subscribe(response => {
         this.professional = response;
       },
       err => {

@@ -24,6 +24,7 @@ export class AddDoctorComponent implements OnInit {
   address : Address;
   socialInsurance : SocialInsurance;
   socialInsurances : SocialInsurance[];
+  id_doctor = "new";
 
 
   constructor(private _professionalService: ProfessionalService, private _router: Router) {

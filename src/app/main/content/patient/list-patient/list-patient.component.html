@@ -1,3 +1,4 @@
+<!-- <div class="example-container mat-elevation-z8"> -->
 <div class="page-layout simple fullwidth" fxLayout="column" fusePerfectScrollbar>
 
     <!-- HEADER -->
@@ -6,19 +7,19 @@
             <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
                 <mat-icon class="secondary-text s-16">home</mat-icon>
                 <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
-                <span class="secondary-text">Pacientes</span>
+                <span class="secondary-text">Licenciados</span>
             </div>
-            <div class="h1 mt-16">Lista Pacientes</div>
+            <div class="h1 mt-16">Lista Licenciados</div>
         </div>
     </div>
     <!-- / HEADER -->
 
     <div class="example-header">
         <mat-form-field>
-            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
         </mat-form-field>
     </div>
-
+    
     <mat-table #table [dataSource]="dataSource">
       <!-- Position Column -->
       <ng-container matColumnDef="name">
@@ -29,7 +30,7 @@
       <ng-container matColumnDef="contact">
         <mat-header-cell *matHeaderCellDef>Contacto</mat-header-cell>
         <mat-cell *matCellDef="let element"><mat-icon>mail_outline</mat-icon>{{element.email}}<br><mat-icon>phone</mat-icon>{{element.phones.number}}</mat-cell>
-      </ng-container>  
+      </ng-container>
       <ng-container matColumnDef="socialInsurance">
         <mat-header-cell *matHeaderCellDef>Obra Social</mat-header-cell>
         <mat-cell *matCellDef="let element">{{element.socialInsurance._id.name}} / {{element.socialInsurance.number}}</mat-cell>
@@ -51,4 +52,6 @@
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;">{{row}}</mat-row>
     </mat-table>
+    <mat-paginator #paginator [pageSize]="2">
+    </mat-paginator>
 </div>

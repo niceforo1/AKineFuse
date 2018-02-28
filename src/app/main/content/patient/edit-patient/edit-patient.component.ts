@@ -26,6 +26,7 @@ export class EditPatientComponent implements OnInit {
   patient: any;
   socialInsurances: any;
   socialInsurance: PatientSocialInsurance;
+  id_patient : string;
 
   constructor(private _patientService: PatientService, private _socialInsuranceService: SocialInsuranceService,
               private _router: Router, private _activatedRoute: ActivatedRoute) {
@@ -68,8 +69,8 @@ export class EditPatientComponent implements OnInit {
 
   getPatients(){
     this._activatedRoute.params.forEach((params:Params)=>{
-      let id = params['id'];
-      this._patientService.searchPatient(id).subscribe(response => {
+      this.id_patient = params['id'];
+      this._patientService.searchPatient(this.id_patient).subscribe(response => {
         this.patient = response;
       },
       err => {

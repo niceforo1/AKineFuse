@@ -27,6 +27,7 @@ export class AddPatientComponent implements OnInit {
   patient: any;
   socialInsurances: any;
   socialInsurance: any;
+  id_patient = "new";
 
   constructor(private _patientService: PatientService, private _socialInsuranceService: SocialInsuranceService,
               private _router: Router, private _activatedRoute: ActivatedRoute) {

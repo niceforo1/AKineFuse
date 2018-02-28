@@ -22,13 +22,13 @@
                 <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
                     <mat-form-field fxFlex="50">
-                      <input matInput placeholder="Nombre" #name="ngModel" type="text" name="name" [(ngModel)]="patient.name" required>                   
+                      <input matInput placeholder="Nombre" #name="ngModel" type="text" name="name" [(ngModel)]="patient.name" required>
                         <mat-error *ngIf="!name.valid && name.touched">
                             El nombre es obligatorio!
                         </mat-error>
                     </mat-form-field>
 
-                    <mat-form-field fxFlex="50">                      
+                    <mat-form-field fxFlex="50">
                         <input matInput #lastName="ngModel" placeholder="Apellido" type="text" name="lastName" [(ngModel)]="patient.lastName" required>
                         <mat-error *ngIf="!lastName.valid && lastName.touched">
                             El apellido es obligatorio!
@@ -87,16 +87,20 @@
                           </mat-option>
                           <mat-option *ngFor="let socialInsurance of socialInsurances" value="{{socialInsurance._id}}">
                             {{socialInsurance.name}}
-                          </mat-option>                            
+                          </mat-option>
                       </mat-select>
                   </mat-form-field>
-                    <mat-form-field fxFlex="50">                      
+                    <mat-form-field fxFlex="50">
                         <input matInput #socialInsurance.number="ngModel" placeholder="Número" type="text" name="socialInsurance.number" [(ngModel)]="patient.socialInsurance.number">
                     </mat-form-field>
-                </div>                
+                </div>
 
                 <button mat-raised-button type="button" color="accent" [disabled]="!form.form.valid" type="submit">
                     Guardar
+                </button>
+                <br/>
+                <button mat-raised-button type="button" color="warn" *ngIf="id_patient !== 'new' "  routerLink="/list-patients">
+                    Volver
                 </button>
             </form>
        </div>

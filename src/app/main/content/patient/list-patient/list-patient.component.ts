@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
-import { MatTableDataSource } from '@angular/material';
+import {MatPaginator, MatTableDataSource } from '@angular/material';
 /* Services */
 import {PatientService} from '../../../services/patient.service';
 
@@ -19,6 +19,7 @@ export class ListPatientComponent implements OnInit {
   patients: any;
   displayedColumns = ['name', 'contact','socialInsurance', 'action'];
   dataSource :any;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private _patientService: PatientService, private router: Router) {
     this.patients = this.getPatients();
@@ -31,6 +32,7 @@ export class ListPatientComponent implements OnInit {
     this._patientService.getPatient().subscribe(response => {
       this.patients = response;
       this.dataSource = new MatTableDataSource(this.patients.map(dato => {return Object.assign(dato, {'action':'action'})}));
+      this.dataSource.paginator = this.paginator;
     },
     err => {
       this.messageClass = 'alert alert-danger alert-dismissible';
@@ -43,8 +45,16 @@ export class ListPatientComponent implements OnInit {
     let result = confirm("¡Esta seguro que desea borrar el Paciente seleccionado?");
     if(result) {
       this._patientService.deletePatient(patient._id).subscribe(response => {
-        this.dataSource.data.splice(i,1);
-        this.dataSource = new MatTableDataSource<Element>(this.dataSource.data);
+        this.getPatients();
+        if(!this.paginator.hasNextPage()){
+          let num = Math.trunc(this.paginator.length / this.paginator.pageSize);
+          if(num > 0){
+            this.paginator.pageIndex = num - 1;
+          } else if(num = 0){
+            this.paginator.pageIndex = num;
+          }
+        }
+        this.dataSource.paginator = this.paginator;
       },
       err => {
         this.messageClass = 'alert alert-danger alert-dismissible';

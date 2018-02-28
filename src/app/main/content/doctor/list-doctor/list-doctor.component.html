@@ -16,7 +16,7 @@
 
     <div class="example-header">
         <mat-form-field>
-            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
         </mat-form-field>
     </div>
 
@@ -59,8 +59,10 @@
                 </button>
             </mat-cell>
         </ng-container>
-        
+
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;">{{row}}</mat-row>
     </mat-table>
+    <mat-paginator #paginator [pageSize]="15">
+    </mat-paginator>
 </div>
