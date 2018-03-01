@@ -14,6 +14,7 @@ import { FuseSampleModule } from './main/content/sample/sample.module';
 import { DoctorModule } from './main/content/doctor/doctor.module';
 import { PatientModule } from './main/content/patient/patient.module';
 import { TranslateModule } from '@ngx-translate/core';
+import {Login2Module} from './main/login-2/login-2.module';
 
 const appRoutes: Routes = [
     {
@@ -36,7 +37,8 @@ const appRoutes: Routes = [
         FuseMainModule,
         FuseSampleModule,
         DoctorModule,
-        PatientModule
+        PatientModule,
+        Login2Module
     ],
     providers   : [
         FuseSplashScreenService,
