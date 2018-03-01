@@ -58,33 +58,33 @@
                     </a>
                 </div>
 
-                <button  [routerLink]="'**'" mat-raised-button color="accent" class="submit-button" aria-label="LOGIN"
-                        [disabled]="loginForm.invalid">
+                <button mat-raised-button color="accent" class="submit-button" aria-label="LOGIN"
+                        [disabled]="loginForm.invalid" routerLink="/sample">
                     LOGIN
                 </button>
 
             </form>
 
-            <div class="separator">
-                <span class="text">OR</span>
-            </div>
+            <!--<div class="separator">-->
+                <!--<span class="text">OR</span>-->
+            <!--</div>-->
 
-            <div fxLayout="column" fxLayoutAlign="start center">
+            <!--<div fxLayout="column" fxLayoutAlign="start center">-->
 
-                <button mat-raised-button class="google">
-                    Log in with Google
-                </button>
+                <!--<button mat-raised-button class="google">-->
+                    <!--Log in with Google-->
+                <!--</button>-->
 
-                <button mat-raised-button class="facebook">
-                    Log in with Facebook
-                </button>
+                <!--<button mat-raised-button class="facebook">-->
+                    <!--Log in with Facebook-->
+                <!--</button>-->
 
-            </div>
+            <!--</div>-->
 
-            <div class="register" fxLayout="column" fxLayoutAlign="center center">
-                <span class="text">Don't have an account?</span>
-                <a class="link" [routerLink]="'/pages/auth/register-2'">Create an account</a>
-            </div>
+            <!--<div class="register" fxLayout="column" fxLayoutAlign="center center">-->
+                <!--<span class="text">Don't have an account?</span>-->
+                <!--<a class="link" [routerLink]="'/pages/auth/register-2'">Create an account</a>-->
+            <!--</div>-->
         </div>
     </div>
 </div>

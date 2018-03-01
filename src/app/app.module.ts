@@ -19,7 +19,7 @@ import {Login2Module} from './main/login-2/login-2.module';
 const appRoutes: Routes = [
     {
         path      : '**',
-        redirectTo: 'sample'
+        redirectTo: 'login-2'
     }
 ];
 
