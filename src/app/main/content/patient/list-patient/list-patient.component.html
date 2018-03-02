@@ -7,9 +7,9 @@
             <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
                 <mat-icon class="secondary-text s-16">home</mat-icon>
                 <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
-                <span class="secondary-text">Licenciados</span>
+                <span class="secondary-text">Pacientes</span>
             </div>
-            <div class="h1 mt-16">Lista Licenciados</div>
+            <div class="h1 mt-16">Lista Pacientes</div>
         </div>
     </div>
     <!-- / HEADER -->
@@ -19,7 +19,7 @@
             <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
         </mat-form-field>
     </div>
-    
+
     <mat-table #table [dataSource]="dataSource">
       <!-- Position Column -->
       <ng-container matColumnDef="name">

@@ -8,6 +8,7 @@ import {PatientService} from '../../../services/patient.service';
 @Component({
   selector: 'app-list-patient',
   templateUrl: './list-patient.component.html',
+  styleUrls  : ['list-patient.css'],
   providers: [
     PatientService
   ]
