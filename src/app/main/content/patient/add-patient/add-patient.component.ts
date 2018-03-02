@@ -3,6 +3,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 /* Services */
 import {PatientService} from '../../../services/patient.service';
 import {SocialInsuranceService} from '../../../services/socialInsurance.service';
+import {LocationService} from '../../../services/location.service';
 /* Models */
 import {Patient} from '../../../models/patient';
 import {PatientSocialInsurance} from '../../../models/patientSocialInsurance';
@@ -15,7 +16,8 @@ import {SocialInsurance} from '../../../models/SocialInsurance';
   templateUrl: './add-patient.component.html',
   providers: [
     PatientService,
-    SocialInsuranceService
+    SocialInsuranceService,
+    LocationService
   ]
 })
 
@@ -28,9 +30,12 @@ export class AddPatientComponent implements OnInit {
   socialInsurances: any;
   socialInsurance: any;
   id_patient = "new";
+  province: any;
+  provinces:any;
+  cities:any;
 
   constructor(private _patientService: PatientService, private _socialInsuranceService: SocialInsuranceService,
-              private _router: Router, private _activatedRoute: ActivatedRoute) {
+              private _locationService:LocationService, private _router: Router, private _activatedRoute: ActivatedRoute) {
     this.action = 'Guardar';
     this.title = 'Agregar Paciente';
     this.message = null;
@@ -43,10 +48,6 @@ export class AddPatientComponent implements OnInit {
     this.patient.phones.type = 'Celular';
     /*ADDRESS*/
     this.patient.address = new Address();
-    this.patient.address.city = 'Cordoba';
-    this.patient.address.state = 'Cordoba';
-    this.patient.address.neighborhood = 'Centro';
-    this.patient.address.zip = '5000';
     /*SOCIAL INSURANCE*/
     this.socialInsurances = new Array();
     this.socialInsurance = new PatientSocialInsurance();
@@ -54,11 +55,25 @@ export class AddPatientComponent implements OnInit {
 
   ngOnInit() {
     this.getSocialInsurances();
+    this.getProvinces();
   }
 
   onSubmit() {
     this.message = null;
     this.savePatient();
+  }
+
+  onChange(){
+    this._locationService.getCities(this.province).subscribe(data => {
+      this.patient.address.state = this.province;
+      this.cities = data[0].localidad;
+    },
+    err => {
+      this.messageClass = 'alert alert-danger alert-dismissible';
+      this.message = `${err.error}`
+      console.log(`${err.error}`)
+    })
+
   }
 
   savePatient() {
@@ -86,6 +101,16 @@ export class AddPatientComponent implements OnInit {
   getSocialInsurances() {
     this._socialInsuranceService.getSocialInsurance().subscribe(response => {
       this.socialInsurances = response;
+    },
+    err => {
+      this.messageClass = 'alert alert-danger alert-dismissible';
+      this.message = `${err.error}`
+      console.log(`${err.error}`)
+    });
+  }
+  getProvinces(){
+    this._locationService.getProvinces().subscribe(data => {
+      this.provinces = data;
     },
     err => {
       this.messageClass = 'alert alert-danger alert-dismissible';
