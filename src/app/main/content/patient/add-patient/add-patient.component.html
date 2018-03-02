@@ -74,7 +74,7 @@
                 </div>
 
                 <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
-                    <mat-form-field fxFlex="20">
+                    <mat-form-field fxFlex="25">
                        <mat-select placeholder="Provincia" #provinceTemp="ngModel" name="province" [(ngModel)]="province" (change)="onChange()">
                            <mat-option [value]="''">
                                Seleccionar provincia
@@ -84,7 +84,7 @@
                            </mat-option>
                        </mat-select>
                    </mat-form-field>
-                   <mat-form-field fxFlex="20">
+                   <mat-form-field fxFlex="25">
                       <mat-select placeholder="Ciudad" #city="ngModel" name="city" [(ngModel)]="patient.address.city">
                           <mat-option [value]="''">
                               Seleccionar ciudad
@@ -94,10 +94,10 @@
                           </mat-option>
                       </mat-select>
                   </mat-form-field>
-                  <mat-form-field fxFlex="20">
+                  <mat-form-field fxFlex="25">
                       <input matInput #zip="ngModel" placeholder="Código Postal" type="text" name="zip" [(ngModel)]="patient.address.zip">
                   </mat-form-field>
-                  <mat-form-field fxFlex="20">
+                  <mat-form-field fxFlex="25">
                       <input matInput #addressStreet="ngModel" placeholder="Dirección" type="text" name="addressStreet" [(ngModel)]="patient.address.street">
                   </mat-form-field>
 
