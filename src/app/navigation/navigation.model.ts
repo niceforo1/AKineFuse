@@ -18,14 +18,16 @@ export class FuseNavigationModel implements FuseNavigationModelInterface
                         'title': 'Agregar Licenciado',
                         'translate': 'Agregar Licenciado',
                         'type' : 'item',
-                        'url'  : '/add-doctor'                        
+                        'url'  : '/add-doctor',
+                        'icon': 'person_outline'
                     },
                     {
                         'id'   : 'listDoctors',
                         'title': 'Listar Licenciados',
                         'translate': 'Listar Licenciados',
                         'type' : 'item',
-                        'url'  : '/list-doctors'                        
+                        'url'  : '/list-doctors',
+                        'icon': 'people_outline'
                     }
                 ]
             },
@@ -40,14 +42,16 @@ export class FuseNavigationModel implements FuseNavigationModelInterface
                         'title': 'Agregar Paciente',
                         'translate': 'Agregar Paciente',
                         'type' : 'item',
-                        'url'  : '/add-patient'                        
+                        'url'  : '/add-patient',
+                        'icon': 'person'
                     },
                     {
                         'id'   : 'listPatients',
                         'title': 'Listar Pacientes',
                         'translate': 'Listar Pacientes',
                         'type' : 'item',
-                        'url'  : '/list-patients'                        
+                        'url'  : '/list-patients',
+                        'icon': 'people'
                     }
                 ]
             },
