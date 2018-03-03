@@ -20,10 +20,10 @@
         </mat-form-field>
     </div>
 
-    <mat-table #table [dataSource]="dataSource">
+    <mat-table #table [dataSource]="dataSource" matSort>
       <!-- Position Column -->
       <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
         <mat-cell *matCellDef="let element">{{element.lastName}}, {{element.name}}<br/>DNI: {{element.id}}</mat-cell>
       </ng-container>
 
@@ -52,6 +52,6 @@
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;">{{row}}</mat-row>
     </mat-table>
-    <mat-paginator #paginator [pageSize]="2">
+    <mat-paginator #paginator [pageSize]="15">
     </mat-paginator>
 </div>

@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
-import {MatPaginator, MatTableDataSource } from '@angular/material';
+import {MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 /* Services */
 import {PatientService} from '../../../services/patient.service';
 
@@ -21,6 +21,7 @@ export class ListPatientComponent implements OnInit {
   displayedColumns = ['name', 'contact','socialInsurance', 'action'];
   dataSource :any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private _patientService: PatientService, private router: Router) {
     this.patients = this.getPatients();
@@ -34,6 +35,7 @@ export class ListPatientComponent implements OnInit {
       this.patients = response;
       this.dataSource = new MatTableDataSource(this.patients.map(dato => {return Object.assign(dato, {'action':'action'})}));
       this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     },
     err => {
       this.messageClass = 'alert alert-danger alert-dismissible';
@@ -56,6 +58,7 @@ export class ListPatientComponent implements OnInit {
           }
         }
         this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       },
       err => {
         this.messageClass = 'alert alert-danger alert-dismissible';

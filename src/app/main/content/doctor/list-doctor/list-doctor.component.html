@@ -20,17 +20,17 @@
         </mat-form-field>
     </div>
 
-    <mat-table #table [dataSource]="dataSource">
+    <mat-table #table [dataSource]="dataSource" matSort>
 
         <!-- Position Column -->
         <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.name}}</mat-cell>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="lastName">
-            <mat-header-cell *matHeaderCellDef>Apellido</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Apellido</mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.lastName}}</mat-cell>
         </ng-container>
 
