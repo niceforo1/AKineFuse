@@ -15,6 +15,9 @@ import { DoctorModule } from './main/content/doctor/doctor.module';
 import { PatientModule } from './main/content/patient/patient.module';
 import { TranslateModule } from '@ngx-translate/core';
 import {Login2Module} from './main/login-2/login-2.module';
+import {FuseProjectDashboardModule} from './main/content/dashboards/project/project.module';
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { FuseFakeDbService } from './fuse-fake-db/fuse-fake-db.service';
 
 const appRoutes: Routes = [
     {
@@ -34,8 +37,13 @@ const appRoutes: Routes = [
         RouterModule.forRoot(appRoutes),
         SharedModule,
         TranslateModule.forRoot(),
+        InMemoryWebApiModule.forRoot(FuseFakeDbService, {
+          delay             : 0,
+          passThruUnknownUrl: true
+        }),
         FuseMainModule,
         FuseSampleModule,
+        FuseProjectDashboardModule,
         DoctorModule,
         PatientModule,
         Login2Module
