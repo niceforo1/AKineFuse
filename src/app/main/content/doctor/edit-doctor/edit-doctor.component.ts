@@ -6,6 +6,9 @@ import { ProfessionalService } from '../../../services/professional.service';
 import { Professional } from '../../../models/Professional';
 import { Address } from '../../../models/Address';
 import { Phone } from '../../../models/Phone';
+/*Dialog*/
+import { MatDialog } from '@angular/material';
+import { DialogComponent } from '../../dialog/dialog.component';
 
 @Component({
   selector: 'app-edit-doctor',
@@ -24,7 +27,8 @@ export class EditDoctorComponent implements OnInit {
   phone : Phone;
   id_doctor : string;
 
-  constructor(private _professionalService: ProfessionalService, private _router: Router, private _activatedRoute: ActivatedRoute) {
+  constructor(private _professionalService: ProfessionalService, private _router: Router,
+              private _activatedRoute: ActivatedRoute, public dialog: MatDialog) {
     this.action = "Editar";
     this.title = "Editar Licenciado";
     this.message = null;
@@ -73,4 +77,17 @@ export class EditDoctorComponent implements OnInit {
       console.log(`${err.error}`)
     });
   }
+
+  openDialog(config : any){
+      const dialogRef = this.dialog.open(DialogComponent, { data: {
+        title: config.title,
+        message: config.message,
+        btnCancelar: config.btnCancelar,
+      }});
+      dialogRef.afterClosed().subscribe(result => {
+        if(config.type != 'E'){
+            this._router.navigate([config.navigate]);
+        }
+      });
+    }
 }

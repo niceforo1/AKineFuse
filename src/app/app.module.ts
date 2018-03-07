@@ -13,6 +13,7 @@ import { FuseNavigationService } from './core/components/navigation/navigation.s
 import { FuseSampleModule } from './main/content/sample/sample.module';
 import { DoctorModule } from './main/content/doctor/doctor.module';
 import { PatientModule } from './main/content/patient/patient.module';
+import { DialogModule } from './main/content/dialog/dialog.module'
 import { TranslateModule } from '@ngx-translate/core';
 import {Login2Module} from './main/login-2/login-2.module';
 import {FuseProjectDashboardModule} from './main/content/dashboards/project/project.module';
@@ -46,6 +47,7 @@ const appRoutes: Routes = [
         FuseProjectDashboardModule,
         DoctorModule,
         PatientModule,
+        DialogModule,
         Login2Module
     ],
     providers   : [
