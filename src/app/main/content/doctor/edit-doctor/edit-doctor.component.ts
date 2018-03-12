@@ -7,14 +7,14 @@ import { Professional } from '../../../models/Professional';
 import { Address } from '../../../models/Address';
 import { Phone } from '../../../models/Phone';
 /*Dialog*/
-import { MatDialog } from '@angular/material';
-import { DialogComponent } from '../../dialog/dialog.component';
+import { DialogConfigComponent } from '../../dialog/dialogConfig.component';
 
 @Component({
   selector: 'app-edit-doctor',
   templateUrl: '../add-doctor/add-doctor.component.html',
   providers: [
-    ProfessionalService
+    ProfessionalService,
+    DialogConfigComponent
   ]
 })
 
@@ -28,11 +28,9 @@ export class EditDoctorComponent implements OnInit {
   id_doctor : string;
 
   constructor(private _professionalService: ProfessionalService, private _router: Router,
-              private _activatedRoute: ActivatedRoute, public dialog: MatDialog) {
+              private _activatedRoute: ActivatedRoute, public dialogConfig: DialogConfigComponent) {
     this.action = "Editar";
     this.title = "Editar Licenciado";
-    this.message = null;
-    this.messageClass = null;
     this.professional = new Professional();
     this.professional.phones = new Phone();
     this.professional.address = new Address();
@@ -51,43 +49,23 @@ export class EditDoctorComponent implements OnInit {
         this.professional = response;
       },
       err => {
-        this.messageClass = 'alert alert-danger alert-dismissible';
-        this.message = `${err.error}`
-        console.log(`${err.error}`)
+        this.dialogConfig.openDialog(this.dialogConfig.dialogError);
       });
     });
   }
 
   onSubmit() {
-    this.message = null;
     this.saveProfessional();
   }
 
   saveProfessional() {
     this._professionalService.updateProfessional(this.professional, this.professional._id).subscribe(data => {
-        this.messageClass = 'alert alert-success alert-dismissible';
-        this.message = 'El profesional fue guardado correctamente.';
-        setTimeout(() => {
-          this._router.navigate(['/list-doctors']);
-        }, 2000);
+        this.dialogConfig.openDialog(this.dialogConfig.dialogGuardar);
       },
     err => {
-      this.messageClass = 'alert alert-danger alert-dismissible';
-      this.message = `${err.error}`
-      console.log(`${err.error}`)
+        this.dialogConfig.openDialog(this.dialogConfig.dialogError);
     });
   }
 
-  openDialog(config : any){
-      const dialogRef = this.dialog.open(DialogComponent, { data: {
-        title: config.title,
-        message: config.message,
-        btnCancelar: config.btnCancelar,
-      }});
-      dialogRef.afterClosed().subscribe(result => {
-        if(config.type != 'E'){
-            this._router.navigate([config.navigate]);
-        }
-      });
-    }
+
 }

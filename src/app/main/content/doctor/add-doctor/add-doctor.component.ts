@@ -5,14 +5,14 @@ import { Phone } from '../../../models/Phone';
 import { Address } from '../../../models/Address';
 import { SocialInsurance } from '../../../models/SocialInsurance';
 import { ProfessionalService } from '../../../services/professional.service';
-import { MatDialog } from '@angular/material';
-import { DialogComponent } from '../../dialog/dialog.component';
+import { DialogConfigComponent } from '../../dialog/dialogConfig.component';
 
 @Component({
   selector: 'app-add-doctor',
   templateUrl: 'add-doctor.component.html',
   providers: [
-    ProfessionalService
+    ProfessionalService,
+    DialogConfigComponent
   ]
 })
 
@@ -25,11 +25,8 @@ export class AddDoctorComponent implements OnInit {
   socialInsurance : SocialInsurance;
   socialInsurances : SocialInsurance[];
   id_doctor = "new";
-  dialogError : any;
-  dialogGuardar : any;
-  dialogDuplicado : any;
 
-  constructor(private _professionalService: ProfessionalService, private _router: Router, public dialog: MatDialog) {
+  constructor(private _professionalService: ProfessionalService, private _router: Router, public dialogConfig: DialogConfigComponent) {
     this.professional = new Professional();
     this.action = "Guardar";
     this.title = "Agregar Licenciado";
@@ -50,25 +47,6 @@ export class AddDoctorComponent implements OnInit {
     this.professional.socialInsurance.name = "Swiss Medical";
     this.professional.socialInsurance.contact = '123456';
     this.professional.socialInsurance.email = 'swiss.medical@sw.com';
-    this.dialogGuardar = {
-      title: 'Guardar',
-      message: 'El profesional ha sido guardado correctamente.',
-      btnCancelar: 'false',
-      type: 'G',
-      navigate: '/list-doctors'
-    };
-    this.dialogError = {
-      title: 'Error',
-      message: 'Error al intentar guardar el profesional.',
-      btnCancelar: 'false',
-      type: 'E'
-    };
-    this.dialogDuplicado = {
-      title: 'Error',
-      message: 'El profesional que intenta guardar ya se encuentra registrado.',
-      btnCancelar: 'false',
-      type: 'E'
-    };
   }
 
   ngOnInit() {
@@ -84,32 +62,21 @@ export class AddDoctorComponent implements OnInit {
   saveProfessional() {
     this._professionalService.getProfessionalByDoc(this.professional.id).subscribe(data => {
       if (data) {
-        this.openDialog(this.dialogDuplicado);
+        this.dialogConfig.openDialog(this.dialogConfig.dialogDuplicado);
       } else {
         this._professionalService.saveProfessional(this.professional).subscribe(data => {
-            this.openDialog(this.dialogGuardar);
+          this.dialogConfig.openDialog(this.dialogConfig.dialogGuardar);
         },
         err => {
-          this.openDialog(this.dialogError);
+          this.dialogConfig.openDialog(this.dialogConfig.dialogError);
         });
       }
     },
     err => {
-      this.openDialog(this.dialogError);
+      this.dialogConfig.openDialog(this.dialogConfig.dialogError);
     });
   }
 
-  openDialog(config : any){
-      const dialogRef = this.dialog.open(DialogComponent, { data: {
-        title: config.title,
-        message: config.message,
-        btnCancelar: config.btnCancelar,
-      }});
-      dialogRef.afterClosed().subscribe(result => {
-        if(config.type != 'E'){
-            this._router.navigate([config.navigate]);
-        }
-      });
-    }
+
 
 }
