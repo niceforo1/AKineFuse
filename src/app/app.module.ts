@@ -13,18 +13,19 @@ import { FuseNavigationService } from './core/components/navigation/navigation.s
 import { FuseSampleModule } from './main/content/sample/sample.module';
 import { DoctorModule } from './main/content/doctor/doctor.module';
 import { PatientModule } from './main/content/patient/patient.module';
-import { DialogModule } from './main/content/dialog/dialog.module'
+import { DialogModule } from './main/content/dialog/dialog.module';
 import { TranslateModule } from '@ngx-translate/core';
-import {Login2Module} from './main/login-2/login-2.module';
 import {FuseProjectDashboardModule} from './main/content/dashboards/project/project.module';
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { FuseFakeDbService } from './fuse-fake-db/fuse-fake-db.service';
 
 const appRoutes: Routes = [
     {
         path      : '**',
-        redirectTo: 'login-2'
-    }
+        redirectTo: '/pages/auth/login-2'
+    },
+    {
+        path        : 'pages',
+        loadChildren: './main/content/pages/pages.module#FusePagesModule'
+    },
 ];
 
 @NgModule({
@@ -38,17 +39,12 @@ const appRoutes: Routes = [
         RouterModule.forRoot(appRoutes),
         SharedModule,
         TranslateModule.forRoot(),
-        InMemoryWebApiModule.forRoot(FuseFakeDbService, {
-          delay             : 0,
-          passThruUnknownUrl: true
-        }),
         FuseMainModule,
         FuseSampleModule,
         FuseProjectDashboardModule,
         DoctorModule,
         PatientModule,
-        DialogModule,
-        Login2Module
+        DialogModule
     ],
     providers   : [
         FuseSplashScreenService,
