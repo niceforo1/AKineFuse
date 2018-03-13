@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FuseConfigService } from '../../core/services/config.service';
-import { fuseAnimations } from '../../core/animations';
+import { FuseConfigService } from '../../../../../core/services/config.service';
+import { fuseAnimations } from '../../../../../core/animations';
 
 @Component({
     selector   : 'fuse-login-2',

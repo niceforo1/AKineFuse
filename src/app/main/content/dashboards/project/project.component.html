@@ -21,21 +21,21 @@
 
                 <div class="widget-group p-12" fxLayout="row" fxFlex="100" fxLayoutWrap *fuseIfOnDom [@animateStagger]="{value:'50'}">
 
-                    <!-- WIDGET 2 -->
+                    <!-- WIDGET 1 -->
                     <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-md="25">
 
                         <!-- Front -->
                         <div class="fuse-widget-front mat-white-bg mat-elevation-z2">
                             <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="space-between center">
-                                <div class="h3">{{widgets.widget2.title}}</div>
+                                <div class="h3">{{widgets.widget1.title}}</div>
 
                             </div>
 
                             <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
                                 <div class="red-fg font-size-72 line-height-72">
-                                    {{widgets.widget2.data.count}}
+                                    {{widgets.widget1.data.count}}
                                 </div>
-                                <div class="h3 secondary-text font-weight-500">{{widgets.widget2.data.label}}</div>
+                                <div class="h3 secondary-text font-weight-500">{{widgets.widget1.data.label}}</div>
                             </div>
 
                             <div class="p-16 mat-white-bg border-top" fxLayout="row" fxLayoutAlign="start center">
@@ -43,37 +43,37 @@
 
                             <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
                               <div class="light-blue-fg font-size-72 line-height-72">
-                                {{widgets.widget1.data.count[widgets.widget1.currentRange]}}
+                                {{widgets.widget1.data1.count}}
                               </div>
-                              <div class="h3 secondary-text font-weight-500">{{widgets.widget1.data.label}}</div>
+                              <div class="h3 secondary-text font-weight-500">{{widgets.widget1.data1.label}}</div>
                             </div>
 
                         </div>
                         <!-- / Front -->
 
                     </fuse-widget>
-                    <!-- / WIDGET 2 -->
+                    <!-- / WIDGET 1 -->
 
-                    <!-- WIDGET 6 -->
+                    <!-- WIDGET 2 -->
                     <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-sm="75">
 
                         <!-- Front -->
                         <div class="fuse-widget-front mat-white-bg mat-elevation-z2">
                             <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="space-between center">
-                              <div class="h3">{{widgets.widget6.title}}</div>
+                              <div class="h3">{{widget2.title}}</div>
                             </div>
 
                             <div class="h-300">
                                 <ngx-charts-pie-chart
                                     *fuseIfOnDom
-                                    [scheme]="widget6.scheme"
-                                    [results]="widgets.widget6.mainChart[widget6.currentRange]"
-                                    [legend]="widget6.showLegend"
-                                    [explodeSlices]="widget6.explodeSlices"
-                                    [labels]="widget6.labels"
-                                    [doughnut]="widget6.doughnut"
-                                    [gradient]="widget6.gradient"
-                                    (select)="widget6.onSelect($event)">
+                                    [scheme]="widget2.scheme"
+                                    [results]="widgets.widget2.mainChart[0]"
+                                    [legend]="widget2.showLegend"
+                                    [explodeSlices]="widget2.explodeSlices"
+                                    [labels]="widget2.labels"
+                                    [doughnut]="widget2.doughnut"
+                                    [gradient]="widget2.gradient"
+                                    (select)="widget2.onSelect($event)">
                                 </ngx-charts-pie-chart>
 
                             </div>
@@ -82,7 +82,7 @@
                         <!-- / Front -->
 
                     </fuse-widget>
-                    <!-- / WIDGET 6 -->
+                    <!-- / WIDGET 2 -->
 
                 </div>
                 <!-- / WIDGET GROUP -->
