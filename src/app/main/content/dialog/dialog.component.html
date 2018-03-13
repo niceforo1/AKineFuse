@@ -3,6 +3,6 @@
     <p>{{message}}</p>
 </mat-dialog-content>
 <mat-dialog-actions>
-    <button mat-raised-button color="accent" [mat-dialog-close]="true" >OK</button>
-    <button mat-raised-button color="warn" [mat-dialog-close]="false" *ngIf="btnCancelar == 'true'">Cancelar</button>
+    <button mat-raised-button color="accent" [mat-dialog-close]=1 >OK</button>
+    <button mat-raised-button color="warn" [mat-dialog-close]=2 *ngIf="btnCancelar == 'true'">Cancelar</button>
 </mat-dialog-actions>

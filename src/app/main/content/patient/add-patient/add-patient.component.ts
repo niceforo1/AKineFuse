@@ -10,6 +10,8 @@ import {PatientSocialInsurance} from '../../../models/patientSocialInsurance';
 import {Address} from '../../../models/Address';
 import {Phone} from '../../../models/Phone';
 import {SocialInsurance} from '../../../models/SocialInsurance';
+/*Dialog*/
+import { DialogConfigComponent }from '../../dialog/dialogConfig.component';
 
 @Component({
   selector: 'app-add-patient',
@@ -17,7 +19,8 @@ import {SocialInsurance} from '../../../models/SocialInsurance';
   providers: [
     PatientService,
     SocialInsuranceService,
-    LocationService
+    LocationService,
+    DialogConfigComponent
   ]
 })
 
@@ -35,11 +38,10 @@ export class AddPatientComponent implements OnInit {
   cities:any;
 
   constructor(private _patientService: PatientService, private _socialInsuranceService: SocialInsuranceService,
-              private _locationService:LocationService, private _router: Router, private _activatedRoute: ActivatedRoute) {
+              private _locationService:LocationService, private _router: Router, private _activatedRoute: ActivatedRoute,
+              private dialog : DialogConfigComponent) {
     this.action = 'Guardar';
     this.title = 'Agregar Paciente';
-    this.message = null;
-    this.messageClass = null;
     this.patient = new Patient();
     this.patient.socialInsurance = new PatientSocialInsurance();
     /*PHONE*/
@@ -59,7 +61,6 @@ export class AddPatientComponent implements OnInit {
   }
 
   onSubmit() {
-    this.message = null;
     this.savePatient();
   }
 
@@ -69,9 +70,7 @@ export class AddPatientComponent implements OnInit {
       this.cities = data[0].localidad;
     },
     err => {
-      this.messageClass = 'alert alert-danger alert-dismissible';
-      this.message = `${err.error}`
-      console.log(`${err.error}`)
+      this.dialog.openDialog(this.dialog.dialogErrorGenerico);
     })
 
   }
@@ -79,22 +78,15 @@ export class AddPatientComponent implements OnInit {
   savePatient() {
     this._patientService.getPatientByDoc(this.patient.id).subscribe(data => {
       if (data) {
-        this.messageClass = 'alert alert-danger alert-dismissible';
-        this.message = 'Ya se encuentra registrado un paciente con el documento ingresado.';
+        this.dialog.openDialog(this.dialog.dialogDuplicadoDni);
       } else {
         this._patientService.savePatient(this.patient).subscribe(data => {
-          this.messageClass = 'alert alert-success alert-dismissible';
-          this.message = 'El paciente fue guardado correctamente.';
-          setTimeout(() => {
-            this._router.navigate(['/list-patients']);
-          }, 2000);
+          this.dialog.openDialog(this.dialog.dialogGuardarPatient);
         });
       }
     },
     err => {
-      this.messageClass = 'alert alert-danger alert-dismissible';
-      this.message = `${err.error}`
-      console.log(`${err.error}`)
+      this.dialog.openDialog(this.dialog.dialogErrorGenerico);
     });
   }
 
@@ -103,9 +95,7 @@ export class AddPatientComponent implements OnInit {
       this.socialInsurances = response;
     },
     err => {
-      this.messageClass = 'alert alert-danger alert-dismissible';
-      this.message = `${err.error}`
-      console.log(`${err.error}`)
+      this.dialog.openDialog(this.dialog.dialogErrorGenerico);
     });
   }
   getProvinces(){
@@ -113,9 +103,7 @@ export class AddPatientComponent implements OnInit {
       this.provinces = data;
     },
     err => {
-      this.messageClass = 'alert alert-danger alert-dismissible';
-      this.message = `${err.error}`
-      console.log(`${err.error}`)
+      this.dialog.openDialog(this.dialog.dialogErrorGenerico);
     });
   }
 }

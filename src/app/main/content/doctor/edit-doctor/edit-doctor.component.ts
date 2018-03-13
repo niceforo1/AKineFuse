@@ -49,7 +49,7 @@ export class EditDoctorComponent implements OnInit {
         this.professional = response;
       },
       err => {
-        this.dialogConfig.openDialog(this.dialogConfig.dialogError);
+        this.dialogConfig.openDialog(this.dialogConfig.dialogErrorGenerico);
       });
     });
   }
@@ -60,10 +60,10 @@ export class EditDoctorComponent implements OnInit {
 
   saveProfessional() {
     this._professionalService.updateProfessional(this.professional, this.professional._id).subscribe(data => {
-        this.dialogConfig.openDialog(this.dialogConfig.dialogGuardar);
+        this.dialogConfig.openDialog(this.dialogConfig.dialogGuardarDoctor);
       },
     err => {
-        this.dialogConfig.openDialog(this.dialogConfig.dialogError);
+        this.dialogConfig.openDialog(this.dialogConfig.dialogErrorGenerico);
     });
   }
 

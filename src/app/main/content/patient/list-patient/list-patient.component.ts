@@ -3,6 +3,8 @@ import {Router} from '@angular/router';
 import {MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 /* Services */
 import {PatientService} from '../../../services/patient.service';
+/*Dialog*/
+import { DialogConfigComponent }from '../../dialog/dialogConfig.component';
 
 
 @Component({
@@ -10,12 +12,11 @@ import {PatientService} from '../../../services/patient.service';
   templateUrl: './list-patient.component.html',
   styleUrls  : ['list-patient.css'],
   providers: [
-    PatientService
+    PatientService,
+    DialogConfigComponent
   ]
 })
 export class ListPatientComponent implements OnInit {
-  message : string;
-  messageClass : string;
   patient: any;
   patients: any;
   displayedColumns = ['name', 'contact','socialInsurance', 'action'];
@@ -23,7 +24,7 @@ export class ListPatientComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _patientService: PatientService, private router: Router) {
+  constructor(private _patientService: PatientService, private router: Router, private dialog: DialogConfigComponent) {
     this.patients = this.getPatients();
   }
 
@@ -38,34 +39,33 @@ export class ListPatientComponent implements OnInit {
       this.dataSource.sort = this.sort;
     },
     err => {
-      this.messageClass = 'alert alert-danger alert-dismissible';
-      this.message = `${err.error}`
-      console.log(`${err.error}`)
+      this.dialog.openDialog(this.dialog.dialogErrorGenerico);
     });
   }
 
   deletePatient(patient, i){
-    let result = confirm("¡Esta seguro que desea borrar el Paciente seleccionado?");
-    if(result) {
-      this._patientService.deletePatient(patient._id).subscribe(response => {
-        this.getPatients();
-        if(!this.paginator.hasNextPage()){
-          let num = Math.trunc(this.paginator.length / this.paginator.pageSize);
-          if(num > 0){
-            this.paginator.pageIndex = num - 1;
-          } else if(num = 0){
-            this.paginator.pageIndex = num;
+    let dialogRef = this.dialog.openConfirmDialog(this.dialog.dialogConfirmBorrar);
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 1) {
+        this._patientService.deletePatient(patient._id).subscribe(response => {
+          this.getPatients();
+          if(!this.paginator.hasNextPage()){
+            let num = Math.trunc(this.paginator.length / this.paginator.pageSize);
+            if(num > 0){
+              this.paginator.pageIndex = num - 1;
+            } else if(num = 0){
+              this.paginator.pageIndex = num;
+            }
           }
-        }
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      },
-      err => {
-        this.messageClass = 'alert alert-danger alert-dismissible';
-        this.message = `${err.error}`
-        console.log(`${err.error}`)
-      });
-    }
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        },
+        err => {
+          this.dialog.openDialog(this.dialog.dialogErrorGenerico);
+        });
+      }
+    });
+
   }
 
   applyFilter(filterValue: string){

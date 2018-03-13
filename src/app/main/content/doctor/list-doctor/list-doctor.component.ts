@@ -5,17 +5,19 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 /* Services */
 import { ProfessionalService } from '../../../services/professional.service';
 
+/*Dialog*/
+import { DialogConfigComponent }from '../../dialog/dialogConfig.component';
+
 @Component({
   selector: 'app-list-doctor',
   templateUrl: './list-doctor.component.html',
   styleUrls  : ['list-doctor.css'],
   providers: [
-    ProfessionalService
+    ProfessionalService,
+    DialogConfigComponent
   ]
 })
 export class ListDoctorComponent implements OnInit {
-  message : string;
-  messageClass : string;
   professional : any;
   professionals: any;
   displayedColumns = ['name','lastName','birthDate', 'gender', 'action'];
@@ -23,7 +25,7 @@ export class ListDoctorComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _professionalService: ProfessionalService, private router: Router) {
+  constructor(private _professionalService: ProfessionalService, private router: Router, private dialog: DialogConfigComponent) {
   }
 
   ngOnInit() {
@@ -38,36 +40,33 @@ export class ListDoctorComponent implements OnInit {
       this.dataSource.sort = this.sort;
     },
     err => {
-      this.messageClass = 'alert alert-danger alert-dismissible';
-      this.message = `${err.error}`
-      console.log(`${err.error}`)
+      this.dialog.openDialog(this.dialog.dialogErrorGenerico);
     });
   }
 
   deleteProfessional(doctor, i){
-    //console.log(i, doctor)
-    let result = confirm("¡Esta seguro que desea borrar el Licenciado seleccionado?");
-    if(result) {
-      this._professionalService.deleteProfessional(doctor._id).subscribe(response => {
-        this.getProfessionals();
-        if(!this.paginator.hasNextPage()){
-          let num = Math.trunc(this.paginator.length / this.paginator.pageSize);
-          if(num > 0){
-            this.paginator.pageIndex = num - 1;
-          } else if(num = 0){
-            this.paginator.pageIndex = num;
-          }
-        }
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      },
-      err => {
-        this.messageClass = 'alert alert-danger alert-dismissible';
-        this.message = `${err.error}`
-        console.log(`${err.error}`)
+    let dialogRef = this.dialog.openConfirmDialog(this.dialog.dialogConfirmBorrar);
+    dialogRef.afterClosed().subscribe(result => {
+        if(result == 1){
+          this._professionalService.deleteProfessional(doctor._id).subscribe(response => {
+            this.getProfessionals();
+            if(!this.paginator.hasNextPage()){
+              let num = Math.trunc(this.paginator.length / this.paginator.pageSize);
+              if(num > 0){
+                this.paginator.pageIndex = num - 1;
+              } else if(num = 0){
+                this.paginator.pageIndex = num;
+              }
+            }
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+          },
+          err => {
+            this.dialog.openDialog(this.dialog.dialogErrorGenerico);
+          });
+        };
       });
     }
-  }
 
   applyFilter(filterValue: string){
       filterValue = filterValue.trim(); // Remove whitespace

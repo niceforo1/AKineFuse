@@ -11,37 +11,45 @@ import { Component } from '@angular/core';
 
 export class DialogConfigComponent
 {
-  dialogError : any;
-  dialogGuardar : any;
-  dialogDuplicado : any;
-  dialogConfirm : any;
+  dialogGuardarDoctor   : any;
+  dialogGuardarPatient  : any;
+  dialogDuplicadoDni    : any;
+  dialogConfirmBorrar   : any;
+  dialogErrorGenerico   : any;
 
   constructor(public dialog: MatDialog, private _router: Router)
     {
-      this.dialogGuardar = {
+      this.dialogGuardarDoctor = {
         title: 'Guardar',
         message: 'El profesional ha sido guardado correctamente.',
         btnCancelar: 'false',
         type: 'G',
         navigate: '/list-doctors'
       };
-      this.dialogError = {
+      this.dialogGuardarPatient = {
+        title: 'Guardar',
+        message: 'El paciente ha sido guardado correctamente.',
+        btnCancelar: 'false',
+        type: 'G',
+        navigate: '/list-patients'
+      };
+      this.dialogDuplicadoDni = {
         title: 'Error',
-        message: 'Error al intentar guardar el profesional.',
+        message: 'Ya se encuentra registrada una persona con el DNI ingresado.',
         btnCancelar: 'false',
         type: 'E'
       };
-      this.dialogDuplicado = {
-        title: 'Error',
-        message: 'El profesional que intenta guardar ya se encuentra registrado.',
-        btnCancelar: 'false',
-        type: 'E'
-      };
-      this.dialogConfirm = {
+      this.dialogConfirmBorrar = {
         title: 'Confirmar',
         message: '¿Está seguro de que desea borrar este registro?.',
         btnCancelar: 'true',
         type: 'C'
+      };
+      this.dialogErrorGenerico = {
+        title: 'Error',
+        message: 'Se ha producido un error, intente nuevamente.',
+        btnCancelar: 'false',
+        type: 'E'
       };
 
     }
@@ -56,18 +64,17 @@ export class DialogConfigComponent
           if(config.type != 'E' && config.navigate){
             this._router.navigate([config.navigate]);
           };
-          if(config.type == 'C'){
-            if(result == 'true'){
-              return true;
-            }else if(result == 'false'){
-              return false;
-            }
-          };
-
         });
       }
 
-    
+    openConfirmDialog(config : any){
+      const dialogRef = this.dialog.open(DialogComponent, { data: {
+        title: config.title,
+        message: config.message,
+        btnCancelar: config.btnCancelar,
+      }});
+      return dialogRef;
+    }
 
 
 

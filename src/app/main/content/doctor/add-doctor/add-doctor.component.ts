@@ -62,18 +62,18 @@ export class AddDoctorComponent implements OnInit {
   saveProfessional() {
     this._professionalService.getProfessionalByDoc(this.professional.id).subscribe(data => {
       if (data) {
-        this.dialogConfig.openDialog(this.dialogConfig.dialogDuplicado);
+        this.dialogConfig.openDialog(this.dialogConfig.dialogDuplicadoDni);
       } else {
         this._professionalService.saveProfessional(this.professional).subscribe(data => {
-          this.dialogConfig.openDialog(this.dialogConfig.dialogGuardar);
+          this.dialogConfig.openDialog(this.dialogConfig.dialogGuardarDoctor);
         },
         err => {
-          this.dialogConfig.openDialog(this.dialogConfig.dialogError);
+          this.dialogConfig.openDialog(this.dialogConfig.dialogErrorGenerico);
         });
       }
     },
     err => {
-      this.dialogConfig.openDialog(this.dialogConfig.dialogError);
+      this.dialogConfig.openDialog(this.dialogConfig.dialogErrorGenerico);
     });
   }
 

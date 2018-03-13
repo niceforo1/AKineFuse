@@ -8,13 +8,16 @@ import {Patient} from '../../../models/patient';
 import {PatientSocialInsurance} from '../../../models/patientSocialInsurance';
 import {Address} from '../../../models/Address';
 import {Phone} from '../../../models/Phone';
+/*Dialog*/
+import { DialogConfigComponent }from '../../dialog/dialogConfig.component';
 
 @Component({
   selector: 'app-edit-patient',
   templateUrl: '../add-patient/add-patient.component.html',
   providers: [
     PatientService,
-    SocialInsuranceService
+    SocialInsuranceService,
+    DialogConfigComponent
   ]
 })
 
@@ -29,11 +32,9 @@ export class EditPatientComponent implements OnInit {
   id_patient : string;
 
   constructor(private _patientService: PatientService, private _socialInsuranceService: SocialInsuranceService,
-              private _router: Router, private _activatedRoute: ActivatedRoute) {
+              private _router: Router, private _activatedRoute: ActivatedRoute, dialog: DialogConfigComponent) {
     this.action = 'Editar';
     this.title = 'Editar Paciente';
-    this.message = null;
-    this.messageClass = null;
     this.patient = new Patient();
     this.patient.socialInsurance = new PatientSocialInsurance();
     this.patient.phones = new Phone();
@@ -48,22 +49,15 @@ export class EditPatientComponent implements OnInit {
   }
 
   onSubmit() {
-    this.message = null;
     this.savePatient();
   }
 
   savePatient() {
     this._patientService.updatePatient(this.patient, this.patient._id).subscribe(data => {
-      this.messageClass = 'alert alert-success alert-dismissible';
-      this.message = 'El paciente fue guardado correctamente.';
-      setTimeout(() => {
-        this._router.navigate(['/list-patients']);
-      }, 2000);
+      this.dialog.openDialog(this.dialog.dialogGuardarPatient);
     },
     err => {
-      this.messageClass = 'alert alert-danger alert-dismissible';
-      this.message = `${err.error}`
-      console.log(`${err.error}`)
+      this.dialog.openDialog(this.dialog.dialogErrorGenerico);
     });
   }
 
@@ -74,9 +68,7 @@ export class EditPatientComponent implements OnInit {
         this.patient = response;
       },
       err => {
-        this.messageClass = 'alert alert-danger alert-dismissible';
-        this.message = `${err.error}`
-        console.log(`${err.error}`)
+        this.dialog.openDialog(this.dialog.dialogErrorGenerico);
       });
     });
   }
@@ -86,9 +78,7 @@ export class EditPatientComponent implements OnInit {
       this.socialInsurances = response;
     },
     err => {
-      this.messageClass = 'alert alert-danger alert-dismissible';
-      this.message = `${err.error}`
-      console.log(`${err.error}`)
+      this.dialog.openDialog(this.dialog.dialogErrorGenerico);
     });
   }
 }
