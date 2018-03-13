@@ -5,6 +5,7 @@ import { Phone } from '../../../models/Phone';
 import { Address } from '../../../models/Address';
 import { SocialInsurance } from '../../../models/SocialInsurance';
 import { ProfessionalService } from '../../../services/professional.service';
+/*Dialog*/
 import { DialogConfigComponent } from '../../dialog/dialogConfig.component';
 
 @Component({
@@ -76,7 +77,5 @@ export class AddDoctorComponent implements OnInit {
       this.dialogConfig.openDialog(this.dialogConfig.dialogErrorGenerico);
     });
   }
-
-
 
 }

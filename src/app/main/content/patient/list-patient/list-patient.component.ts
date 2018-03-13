@@ -6,7 +6,6 @@ import {PatientService} from '../../../services/patient.service';
 /*Dialog*/
 import { DialogConfigComponent }from '../../dialog/dialogConfig.component';
 
-
 @Component({
   selector: 'app-list-patient',
   templateUrl: './list-patient.component.html',
@@ -16,6 +15,7 @@ import { DialogConfigComponent }from '../../dialog/dialogConfig.component';
     DialogConfigComponent
   ]
 })
+
 export class ListPatientComponent implements OnInit {
   patient: any;
   patients: any;
@@ -65,7 +65,6 @@ export class ListPatientComponent implements OnInit {
         });
       }
     });
-
   }
 
   applyFilter(filterValue: string){
@@ -73,4 +72,5 @@ export class ListPatientComponent implements OnInit {
       filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
       this.dataSource.filter = filterValue;
   }
+  
 }

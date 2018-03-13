@@ -81,4 +81,5 @@ export class EditPatientComponent implements OnInit {
       this.dialog.openDialog(this.dialog.dialogErrorGenerico);
     });
   }
+  
 }

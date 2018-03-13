@@ -72,7 +72,6 @@ export class AddPatientComponent implements OnInit {
     err => {
       this.dialog.openDialog(this.dialog.dialogErrorGenerico);
     })
-
   }
 
   savePatient() {
@@ -106,4 +105,5 @@ export class AddPatientComponent implements OnInit {
       this.dialog.openDialog(this.dialog.dialogErrorGenerico);
     });
   }
+  
 }
