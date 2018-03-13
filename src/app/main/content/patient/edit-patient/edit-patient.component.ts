@@ -32,7 +32,7 @@ export class EditPatientComponent implements OnInit {
   id_patient : string;
 
   constructor(private _patientService: PatientService, private _socialInsuranceService: SocialInsuranceService,
-              private _router: Router, private _activatedRoute: ActivatedRoute, dialog: DialogConfigComponent) {
+              private _router: Router, private _activatedRoute: ActivatedRoute, public dialogConfig: DialogConfigComponent) {
     this.action = 'Editar';
     this.title = 'Editar Paciente';
     this.patient = new Patient();
@@ -54,10 +54,10 @@ export class EditPatientComponent implements OnInit {
 
   savePatient() {
     this._patientService.updatePatient(this.patient, this.patient._id).subscribe(data => {
-      this.dialog.openDialog(this.dialog.dialogGuardarPatient);
+      this.dialogConfig.openDialog(this.dialogConfig.dialogGuardarPatient);
     },
     err => {
-      this.dialog.openDialog(this.dialog.dialogErrorGenerico);
+      this.dialogConfig.openDialog(this.dialogConfig.dialogErrorGenerico);
     });
   }
 
@@ -68,7 +68,7 @@ export class EditPatientComponent implements OnInit {
         this.patient = response;
       },
       err => {
-        this.dialog.openDialog(this.dialog.dialogErrorGenerico);
+        this.dialogConfig.openDialog(this.dialogConfig.dialogErrorGenerico);
       });
     });
   }
@@ -78,8 +78,8 @@ export class EditPatientComponent implements OnInit {
       this.socialInsurances = response;
     },
     err => {
-      this.dialog.openDialog(this.dialog.dialogErrorGenerico);
+      this.dialogConfig.openDialog(this.dialogConfig.dialogErrorGenerico);
     });
   }
-  
+
 }

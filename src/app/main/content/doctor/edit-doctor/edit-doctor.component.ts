@@ -21,8 +21,6 @@ import { DialogConfigComponent } from '../../dialog/dialogConfig.component';
 export class EditDoctorComponent implements OnInit {
   action : string;
   title: string;
-  message : string;
-  messageClass : string;
   professional : any;
   phone : Phone;
   id_doctor : string;
