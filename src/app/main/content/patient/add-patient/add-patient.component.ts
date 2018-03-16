@@ -12,6 +12,8 @@ import {Phone} from '../../../models/Phone';
 import {SocialInsurance} from '../../../models/SocialInsurance';
 /*Dialog*/
 import { DialogConfigComponent }from '../../dialog/dialogConfig.component';
+/*Alert*/
+import { AlertComponent } from '../../alerts/alert.component';
 
 @Component({
   selector: 'app-add-patient',
@@ -20,7 +22,8 @@ import { DialogConfigComponent }from '../../dialog/dialogConfig.component';
     PatientService,
     SocialInsuranceService,
     LocationService,
-    DialogConfigComponent
+    DialogConfigComponent,
+    AlertComponent
   ]
 })
 
@@ -39,7 +42,7 @@ export class AddPatientComponent implements OnInit {
 
   constructor(private _patientService: PatientService, private _socialInsuranceService: SocialInsuranceService,
               private _locationService:LocationService, private _router: Router, private _activatedRoute: ActivatedRoute,
-              private dialog : DialogConfigComponent) {
+              private dialog : DialogConfigComponent, public alert: AlertComponent) {
     this.action = 'Guardar';
     this.title = 'Agregar Paciente';
     this.patient = new Patient();
@@ -70,22 +73,22 @@ export class AddPatientComponent implements OnInit {
       this.cities = data[0].localidad;
     },
     err => {
-      this.dialog.openDialog(this.dialog.dialogErrorGenerico);
+      this.alert.openErrorSnackBar(this.alert.genericError);
     })
   }
 
   savePatient() {
     this._patientService.getPatientByDoc(this.patient.id).subscribe(data => {
       if (data) {
-        this.dialog.openDialog(this.dialog.dialogDuplicadoDni);
+        this.alert.openErrorSnackBar(this.alert.errorDuplicado);
       } else {
         this._patientService.savePatient(this.patient).subscribe(data => {
-          this.dialog.openDialog(this.dialog.dialogGuardarPatient);
+          this.alert.openSuccessSnackBar(this.alert.successPatient);
         });
       }
     },
     err => {
-      this.dialog.openDialog(this.dialog.dialogErrorGenerico);
+      this.alert.openErrorSnackBar(this.alert.genericError);
     });
   }
 
@@ -94,7 +97,7 @@ export class AddPatientComponent implements OnInit {
       this.socialInsurances = response;
     },
     err => {
-      this.dialog.openDialog(this.dialog.dialogErrorGenerico);
+      this.alert.openErrorSnackBar(this.alert.genericError);
     });
   }
   getProvinces(){
@@ -102,8 +105,8 @@ export class AddPatientComponent implements OnInit {
       this.provinces = data;
     },
     err => {
-      this.dialog.openDialog(this.dialog.dialogErrorGenerico);
+      this.alert.openErrorSnackBar(this.alert.genericError);
     });
   }
-  
+
 }

@@ -8,13 +8,16 @@ import { Address } from '../../../models/Address';
 import { Phone } from '../../../models/Phone';
 /*Dialog*/
 import { DialogConfigComponent } from '../../dialog/dialogConfig.component';
+/*Alert*/
+import { AlertComponent } from '../../alerts/alert.component';
 
 @Component({
   selector: 'app-edit-doctor',
   templateUrl: '../add-doctor/add-doctor.component.html',
   providers: [
     ProfessionalService,
-    DialogConfigComponent
+    DialogConfigComponent,
+    AlertComponent
   ]
 })
 
@@ -26,7 +29,8 @@ export class EditDoctorComponent implements OnInit {
   id_doctor : string;
 
   constructor(private _professionalService: ProfessionalService, private _router: Router,
-              private _activatedRoute: ActivatedRoute, public dialogConfig: DialogConfigComponent) {
+              private _activatedRoute: ActivatedRoute, public dialogConfig: DialogConfigComponent,
+              public alert: AlertComponent) {
     this.action = "Editar";
     this.title = "Editar Licenciado";
     this.professional = new Professional();
@@ -47,7 +51,7 @@ export class EditDoctorComponent implements OnInit {
         this.professional = response;
       },
       err => {
-        this.dialogConfig.openDialog(this.dialogConfig.dialogErrorGenerico);
+        this.alert.openErrorSnackBar(this.alert.genericError);
       });
     });
   }
@@ -58,10 +62,10 @@ export class EditDoctorComponent implements OnInit {
 
   saveProfessional() {
     this._professionalService.updateProfessional(this.professional, this.professional._id).subscribe(data => {
-        this.dialogConfig.openDialog(this.dialogConfig.dialogGuardarDoctor);
+        this.alert.openSuccessSnackBar(this.alert.successProfessional);
       },
     err => {
-        this.dialogConfig.openDialog(this.dialogConfig.dialogErrorGenerico);
+        this.alert.openErrorSnackBar(this.alert.genericError);
     });
   }
 

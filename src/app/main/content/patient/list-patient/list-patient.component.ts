@@ -5,6 +5,8 @@ import {MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import {PatientService} from '../../../services/patient.service';
 /*Dialog*/
 import { DialogConfigComponent }from '../../dialog/dialogConfig.component';
+/*Alert*/
+import { AlertComponent } from '../../alerts/alert.component';
 
 @Component({
   selector: 'app-list-patient',
@@ -12,7 +14,8 @@ import { DialogConfigComponent }from '../../dialog/dialogConfig.component';
   styleUrls  : ['list-patient.css'],
   providers: [
     PatientService,
-    DialogConfigComponent
+    DialogConfigComponent,
+    AlertComponent
   ]
 })
 
@@ -24,7 +27,8 @@ export class ListPatientComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _patientService: PatientService, private router: Router, private dialog: DialogConfigComponent) {
+  constructor(private _patientService: PatientService, private router: Router, private dialog: DialogConfigComponent,
+              public alert: AlertComponent) {
     this.patients = this.getPatients();
   }
 
@@ -39,7 +43,7 @@ export class ListPatientComponent implements OnInit {
       this.dataSource.sort = this.sort;
     },
     err => {
-      this.dialog.openDialog(this.dialog.dialogErrorGenerico);
+      this.alert.openErrorSnackBar(this.alert.genericError);
     });
   }
 
@@ -59,9 +63,10 @@ export class ListPatientComponent implements OnInit {
           }
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
+          this.alert.openSuccessSnackBar(this.alert.genericDeleteOk);
         },
         err => {
-          this.dialog.openDialog(this.dialog.dialogErrorGenerico);
+          this.alert.openErrorSnackBar(this.alert.genericError);
         });
       }
     });
@@ -72,5 +77,5 @@ export class ListPatientComponent implements OnInit {
       filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
       this.dataSource.filter = filterValue;
   }
-  
+
 }

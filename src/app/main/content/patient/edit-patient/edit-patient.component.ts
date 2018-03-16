@@ -10,6 +10,8 @@ import {Address} from '../../../models/Address';
 import {Phone} from '../../../models/Phone';
 /*Dialog*/
 import { DialogConfigComponent }from '../../dialog/dialogConfig.component';
+/*Alert*/
+import { AlertComponent } from '../../alerts/alert.component';
 
 @Component({
   selector: 'app-edit-patient',
@@ -17,7 +19,8 @@ import { DialogConfigComponent }from '../../dialog/dialogConfig.component';
   providers: [
     PatientService,
     SocialInsuranceService,
-    DialogConfigComponent
+    DialogConfigComponent,
+    AlertComponent
   ]
 })
 
@@ -32,7 +35,8 @@ export class EditPatientComponent implements OnInit {
   id_patient : string;
 
   constructor(private _patientService: PatientService, private _socialInsuranceService: SocialInsuranceService,
-              private _router: Router, private _activatedRoute: ActivatedRoute, public dialogConfig: DialogConfigComponent) {
+              private _router: Router, private _activatedRoute: ActivatedRoute, public dialogConfig: DialogConfigComponent,
+              public alert: AlertComponent) {
     this.action = 'Editar';
     this.title = 'Editar Paciente';
     this.patient = new Patient();
@@ -54,10 +58,10 @@ export class EditPatientComponent implements OnInit {
 
   savePatient() {
     this._patientService.updatePatient(this.patient, this.patient._id).subscribe(data => {
-      this.dialogConfig.openDialog(this.dialogConfig.dialogGuardarPatient);
+      this.alert.openSuccessSnackBar(this.alert.successPatient);
     },
     err => {
-      this.dialogConfig.openDialog(this.dialogConfig.dialogErrorGenerico);
+      this.alert.openErrorSnackBar(this.alert.genericError);
     });
   }
 
@@ -68,7 +72,7 @@ export class EditPatientComponent implements OnInit {
         this.patient = response;
       },
       err => {
-        this.dialogConfig.openDialog(this.dialogConfig.dialogErrorGenerico);
+        this.alert.openErrorSnackBar(this.alert.genericError);
       });
     });
   }
@@ -78,7 +82,7 @@ export class EditPatientComponent implements OnInit {
       this.socialInsurances = response;
     },
     err => {
-      this.dialogConfig.openDialog(this.dialogConfig.dialogErrorGenerico);
+      this.alert.openErrorSnackBar(this.alert.genericError);
     });
   }
 

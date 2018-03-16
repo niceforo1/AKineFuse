@@ -7,13 +7,16 @@ import { SocialInsurance } from '../../../models/SocialInsurance';
 import { ProfessionalService } from '../../../services/professional.service';
 /*Dialog*/
 import { DialogConfigComponent } from '../../dialog/dialogConfig.component';
+/*Alert*/
+import { AlertComponent } from '../../alerts/alert.component';
 
 @Component({
   selector: 'app-add-doctor',
   templateUrl: 'add-doctor.component.html',
   providers: [
     ProfessionalService,
-    DialogConfigComponent
+    DialogConfigComponent,
+    AlertComponent
   ]
 })
 
@@ -27,7 +30,8 @@ export class AddDoctorComponent implements OnInit {
   socialInsurances : SocialInsurance[];
   id_doctor = "new";
 
-  constructor(private _professionalService: ProfessionalService, private _router: Router, public dialogConfig: DialogConfigComponent) {
+  constructor(private _professionalService: ProfessionalService, private _router: Router,
+              public dialogConfig: DialogConfigComponent, public alert: AlertComponent) {
     this.professional = new Professional();
     this.action = "Guardar";
     this.title = "Agregar Licenciado";
@@ -63,18 +67,18 @@ export class AddDoctorComponent implements OnInit {
   saveProfessional() {
     this._professionalService.getProfessionalByDoc(this.professional.id).subscribe(data => {
       if (data) {
-        this.dialogConfig.openDialog(this.dialogConfig.dialogDuplicadoDni);
+        this.alert.openErrorSnackBar(this.alert.errorDuplicado);
       } else {
         this._professionalService.saveProfessional(this.professional).subscribe(data => {
-          this.dialogConfig.openDialog(this.dialogConfig.dialogGuardarDoctor);
+          this.alert.openSuccessSnackBar(this.alert.successProfessional);
         },
         err => {
-          this.dialogConfig.openDialog(this.dialogConfig.dialogErrorGenerico);
+          this.alert.openErrorSnackBar(this.alert.genericError);
         });
       }
     },
     err => {
-      this.dialogConfig.openDialog(this.dialogConfig.dialogErrorGenerico);
+      this.alert.openErrorSnackBar(this.alert.genericError);
     });
   }
 

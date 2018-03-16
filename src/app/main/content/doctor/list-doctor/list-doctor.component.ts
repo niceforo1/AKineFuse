@@ -7,6 +7,8 @@ import { ProfessionalService } from '../../../services/professional.service';
 
 /*Dialog*/
 import { DialogConfigComponent }from '../../dialog/dialogConfig.component';
+/*Alert*/
+import { AlertComponent } from '../../alerts/alert.component';
 
 @Component({
   selector: 'app-list-doctor',
@@ -14,7 +16,8 @@ import { DialogConfigComponent }from '../../dialog/dialogConfig.component';
   styleUrls  : ['list-doctor.css'],
   providers: [
     ProfessionalService,
-    DialogConfigComponent
+    DialogConfigComponent,
+    AlertComponent
   ]
 })
 export class ListDoctorComponent implements OnInit {
@@ -25,7 +28,8 @@ export class ListDoctorComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _professionalService: ProfessionalService, private router: Router, private dialog: DialogConfigComponent) {
+  constructor(private _professionalService: ProfessionalService, private router: Router,
+              private dialog: DialogConfigComponent, public alert: AlertComponent) {
   }
 
   ngOnInit() {
@@ -40,7 +44,7 @@ export class ListDoctorComponent implements OnInit {
       this.dataSource.sort = this.sort;
     },
     err => {
-      this.dialog.openDialog(this.dialog.dialogErrorGenerico);
+      this.alert.openErrorSnackBar(this.alert.genericError);
     });
   }
 
@@ -60,9 +64,10 @@ export class ListDoctorComponent implements OnInit {
             }
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
+            this.alert.openSuccessSnackBar(this.alert.genericDeleteOk);
           },
           err => {
-            this.dialog.openDialog(this.dialog.dialogErrorGenerico);
+            this.alert.openErrorSnackBar(this.alert.genericError);
           });
         };
       });
@@ -81,5 +86,5 @@ export class ListDoctorComponent implements OnInit {
     this.dataSource = new MatTableDataSource<Element>(this.dataSource.data);
     console.log(this.dataSource.data)
   }*/
-  
+
 }
