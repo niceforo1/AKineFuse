@@ -43,7 +43,10 @@
         <!-- Color Column -->
         <ng-container matColumnDef="gender">
             <mat-header-cell *matHeaderCellDef>Genero</mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.gender}}</mat-cell>
+            <mat-cell *matCellDef="let element" [ngSwitch]="element.gender">
+                <mat-icon *ngSwitchCase="'m'">wc</mat-icon>
+                <mat-icon *ngSwitchCase="'f'">accessibility</mat-icon>
+            </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="action">

@@ -35,7 +35,7 @@
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field fxFlex="33">
-                            <input matInput placeholder="Documento" #id="ngModel" type="number" name="id" [(ngModel)]="patient.id" minlength="6" maxlength="9" required>
+                            <input matInput placeholder="Documento" #id="ngModel" type="text" name="id" [(ngModel)]="patient.id" minlength="6" maxlength="9" required>
                             <mat-error *ngIf="!id.valid && id.touched">El documento es obligatorio!</mat-error>
                             <mat-error *ngIf="id.number">El documento permite solo números</mat-error>
                       </mat-form-field>
