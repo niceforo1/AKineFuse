@@ -44,8 +44,8 @@
         <ng-container matColumnDef="gender">
             <mat-header-cell *matHeaderCellDef>Genero</mat-header-cell>
             <mat-cell *matCellDef="let element" [ngSwitch]="element.gender">
-                <mat-icon *ngSwitchCase="'m'">wc</mat-icon>
-                <mat-icon *ngSwitchCase="'f'">accessibility</mat-icon>
+                <i *ngSwitchCase="'m'" class="fa fa-male fa-w-6 fa-2x"></i>
+                <i *ngSwitchCase="'f'" class="fa fa-female fa-w-6 fa-2x"></i>
             </mat-cell>
         </ng-container>
 
