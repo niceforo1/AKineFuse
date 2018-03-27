@@ -9,7 +9,7 @@ import {fuseAnimations} from '../../../../core/animations';
   encapsulation: ViewEncapsulation.None,
   animations: fuseAnimations
 })
-export class FuseProjectComponent {
+export class FuseProjectComponent{
   data: any;
   widgets: any = {};
   widget1: any = {};
@@ -49,10 +49,6 @@ export class FuseProjectComponent {
       gradient     : false,
       scheme       : {
         domain: ['#f44336', '#9c27b0', '#03a9f4', '#e91e63']
-      },
-      onSelect     : (ev) => {
-
-        console.log(ev);
       }
     };
   }

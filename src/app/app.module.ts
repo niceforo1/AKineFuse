@@ -25,7 +25,8 @@ const appRoutes: Routes = [
     {
         path        : 'pages',
         loadChildren: './main/content/pages/pages.module#FusePagesModule'
-    },
+    }
+
 ];
 
 @NgModule({

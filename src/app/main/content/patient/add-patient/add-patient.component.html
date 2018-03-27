@@ -106,7 +106,7 @@
                 <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
                   <mat-form-field fxFlex="50">
                       <mat-select placeholder="Obra Social" #socialInsuranceId="ngModel" name="socialInsuranceId" [(ngModel)]="patient.socialInsurance._id">
-                          <mat-option [value]="''">
+                          <mat-option>
                               Seleccionar Obra Social
                           </mat-option>
                           <mat-option *ngFor="let socialInsurance of socialInsurances" value="{{socialInsurance._id}}">
