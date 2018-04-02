@@ -74,25 +74,22 @@
                 </div>
 
                 <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
-                    <mat-form-field fxFlex="25">
-                       <mat-select placeholder="Provincia" #provinceTemp="ngModel" name="province" [(ngModel)]="province" (change)="onChange()">
-                           <mat-option [value]="''">
-                               Seleccionar provincia
-                           </mat-option>
-                           <mat-option *ngFor="let prov of provinces" value="{{prov.iso_31662}}">
-                             {{prov.provincia}}
-                           </mat-option>
-                       </mat-select>
-                   </mat-form-field>
-                   <mat-form-field fxFlex="25">
-                      <mat-select placeholder="Ciudad" #city="ngModel" name="city" [(ngModel)]="patient.address.city">
-                          <mat-option [value]="''">
-                              Seleccionar ciudad
+                  <mat-form-field fxFlex="25">
+                     <input type="text" placeholder="Provincia" aria-label="Provincia" name="prov" [(ngModel)]="patient.address.state" matInput [formControl]="myControlProv" [matAutocomplete]="auto" (blur)="onChange()">
+                     <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnProv">
+                         <mat-option *ngFor="let option of filteredOptionsProv | async" [value]="option.provincia">
+                             {{ option.provincia }}
+                         </mat-option>
+                     </mat-autocomplete>
+                 </mat-form-field>
+
+                 <mat-form-field fxFlex="25">
+                      <input type="text" placeholder="Ciudad" aria-label="Ciudad" name="city" [(ngModel)]="patient.address.city" matInput [formControl]="myControlCity" [matAutocomplete]="auto2" >
+                      <mat-autocomplete #auto2="matAutocomplete" [displayWith]="displayFnCity">
+                          <mat-option *ngFor="let option of filteredOptionsCity | async" [value]="option">
+                              {{ option }}
                           </mat-option>
-                          <mat-option *ngFor="let city of cities" value="{{city}}">
-                            {{city}}
-                          </mat-option>
-                      </mat-select>
+                      </mat-autocomplete>
                   </mat-form-field>
                   <mat-form-field fxFlex="25">
                       <input matInput #zip="ngModel" placeholder="Código Postal" type="text" name="zip" [(ngModel)]="patient.address.zip">
@@ -105,18 +102,16 @@
 
                 <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
                   <mat-form-field fxFlex="50">
-                      <mat-select placeholder="Obra Social" #socialInsuranceId="ngModel" name="socialInsuranceId" [(ngModel)]="patient.socialInsurance._id">
-                          <mat-option>
-                              Seleccionar Obra Social
+                      <input type="text" placeholder="Obra Social" aria-label="ObraSocial" name="obraSocial" [(ngModel)]="socialInsurance" matInput [formControl]="myControlSIns" [matAutocomplete]="auto3" >
+                      <mat-autocomplete #auto3="matAutocomplete" [displayWith]="displaySIns">
+                          <mat-option *ngFor="let option of filteredOptionsSIns | async" [value]="option">
+                              {{ option.name }}
                           </mat-option>
-                          <mat-option *ngFor="let socialInsurance of socialInsurances" value="{{socialInsurance._id}}">
-                            {{socialInsurance.name}}
-                          </mat-option>
-                      </mat-select>
+                      </mat-autocomplete>
                   </mat-form-field>
-                    <mat-form-field fxFlex="50">
-                        <input matInput #socialInsurance.number="ngModel" placeholder="Número" type="text" name="socialInsurance.number" [(ngModel)]="patient.socialInsurance.number">
-                    </mat-form-field>
+                  <mat-form-field fxFlex="50">
+                      <input matInput #socialInsurance.number="ngModel" placeholder="Número" type="text" name="socialInsurance.number" [(ngModel)]="patient.socialInsurance.number">
+                  </mat-form-field>
                 </div>
 
                 <button mat-raised-button type="button" color="accent" [disabled]="!form.form.valid" type="submit">
