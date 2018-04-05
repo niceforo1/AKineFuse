@@ -27,6 +27,14 @@
         <mat-cell *matCellDef="let element">{{element.lastName}}, {{element.name}}<br/>DNI: {{element.id}}</mat-cell>
       </ng-container>
 
+      <ng-container matColumnDef="gender">
+        <mat-header-cell *matHeaderCellDef>Genero</mat-header-cell>
+        <mat-cell *matCellDef="let element" [ngSwitch]="element.gender">
+          <i *ngSwitchCase="'m'" class="fa fa-male fa-w-6 fa-2x"></i>
+          <i *ngSwitchCase="'f'" class="fa fa-female fa-w-6 fa-2x"></i>
+        </mat-cell>
+      </ng-container>
+
       <ng-container matColumnDef="contact">
         <mat-header-cell *matHeaderCellDef>Contacto</mat-header-cell>
         <mat-cell *matCellDef="let element"><mat-icon>mail_outline</mat-icon>{{element.email}}<br><mat-icon>phone</mat-icon>{{element.phones.number}}</mat-cell>

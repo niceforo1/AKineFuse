@@ -4,7 +4,7 @@ import {MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 /* Services */
 import {PatientService} from '../../../services/patient.service';
 /*Dialog*/
-import { DialogConfigComponent }from '../../dialog/dialogConfig.component';
+import { DialogConfigComponent } from '../../dialog/dialogConfig.component';
 /*Alert*/
 import { AlertComponent } from '../../alerts/alert.component';
 
@@ -22,8 +22,8 @@ import { AlertComponent } from '../../alerts/alert.component';
 export class ListPatientComponent implements OnInit {
   patient: any;
   patients: any;
-  displayedColumns = ['name', 'contact','socialInsurance', 'action'];
-  dataSource :any;
+  displayedColumns = ['name', 'gender', 'contact', 'socialInsurance', 'action'];
+  dataSource: any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -38,7 +38,7 @@ export class ListPatientComponent implements OnInit {
   getPatients() {
     this._patientService.getPatient().subscribe(response => {
       this.patients = response;
-      this.dataSource = new MatTableDataSource(this.patients.map(dato => {return Object.assign(dato, {'action':'action'})}));
+      this.dataSource = new MatTableDataSource(this.patients.map(dato => {return Object.assign(dato, {'action': 'action'});}));
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     },
