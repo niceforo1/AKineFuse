@@ -74,6 +74,18 @@ export class EditPatientComponent implements OnInit {
   }
 
   onSubmit() {
+    if(!this.checkProvSelection(this.patient.address.state)){
+      this.alert.openCustomMsgErrorSnackBar("Verifique el campo 'Provincia', debe seleccionar una opción de la lista.");
+      return;
+    }
+    if(!this.checkCitySelection(this.patient.address.city)){
+      this.alert.openCustomMsgErrorSnackBar("Verifique el campo 'Ciudad', debe seleccionar una opción de la lista.");
+      return;
+    }
+    if(!this.checkSocInsSelection(this.socialInsurance.name)){
+      this.alert.openCustomMsgErrorSnackBar("Verifique el campo 'Obra Social', debe seleccionar una opción de la lista.");
+      return;
+    }
     this.savePatient();
   }
 
@@ -81,24 +93,7 @@ export class EditPatientComponent implements OnInit {
     if (!this.patient.address.state) {
       return;
     }
-    this.patient.address.city = null;
-    this._locationService.getCities(this.patient.address.state).subscribe(
-      data => {
-        if (data[0] === undefined) {
-          this.cities = [];
-          this.filteredOptionsCity = null;
-          return;
-        }
-        this.cities = data[0].localidad;
-        this.filteredOptionsCity = this.myControlCity.valueChanges
-          .startWith(null)
-          .map(city => (city ? this.filterCity(city) : this.cities.slice()));
-        return;
-      },
-      err => {
-        this.alert.openErrorSnackBar(this.alert.genericError);
-      }
-    );
+    this.getCities();
   }
 
   savePatient() {
@@ -117,6 +112,7 @@ export class EditPatientComponent implements OnInit {
       this._patientService.searchPatient(this.id_patient).subscribe(response => {
         this.patient = response;
         this.socialInsurance = this.patient.socialInsurance._id;
+        this.getCities();
       },
       err => {
         this.alert.openErrorSnackBar(this.alert.genericError);
@@ -149,6 +145,26 @@ export class EditPatientComponent implements OnInit {
           .map(
             prov => (prov ? this.filterProvinces(prov) : this.provinces.slice())
           );
+      },
+      err => {
+        this.alert.openErrorSnackBar(this.alert.genericError);
+      }
+    );
+  }
+
+  getCities() {
+    this._locationService.getCities(this.patient.address.state).subscribe(
+      data => {
+        if (data[0] === undefined) {
+          this.cities = [];
+          this.filteredOptionsCity = null;
+          return;
+        }
+        this.cities = data[0].localidad;
+        this.filteredOptionsCity = this.myControlCity.valueChanges
+          .startWith(null)
+          .map(city => (city ? this.filterCity(city) : this.cities.slice()));
+        return;
       },
       err => {
         this.alert.openErrorSnackBar(this.alert.genericError);
@@ -197,6 +213,30 @@ export class EditPatientComponent implements OnInit {
     if (socIns) {
       return socIns.name;
     }
+  }
+
+  checkProvSelection(input: string): boolean{
+    var exist = this.provinces.find(x => x.provincia === input);
+    if(exist){
+      return true;
+    }
+    return false;
+  }
+
+  checkCitySelection(input: string): boolean{
+    var exist = this.cities.find(x => x === input);
+    if(exist){
+      return true;
+    }
+    return false;
+  }
+
+  checkSocInsSelection(input: string): boolean{
+    var exist = this.socialInsurances.find(x => x.name === input);
+    if(exist){
+      return true;
+    }
+    return false;
   }
 
 }

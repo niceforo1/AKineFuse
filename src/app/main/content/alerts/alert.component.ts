@@ -17,6 +17,7 @@ export class AlertComponent
   genericError: any;
   genericDeleteOk: any;
 
+
   constructor(public snackBar: MatSnackBar, private _router: Router) {
     this.horizontalPosition  = 'center';
     this.verticalPosition  = 'top';
@@ -42,6 +43,15 @@ export class AlertComponent
 
   openErrorSnackBar(config: any) {
     this.snackBar.open(config.message, null, {
+      duration: 4000,
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      panelClass: ['errorSnackBar']
+    });
+  }
+
+  openCustomMsgErrorSnackBar(message: any) {
+    this.snackBar.open(message, null, {
       duration: 4000,
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,

@@ -82,6 +82,18 @@ export class AddPatientComponent implements OnInit {
   }
 
   onSubmit() {
+    if(!this.checkProvSelection(this.patient.address.state)){
+      this.alert.openCustomMsgErrorSnackBar("Verifique el campo 'Provincia', debe seleccionar una opción de la lista.");
+      return;
+    }
+    if(!this.checkCitySelection(this.patient.address.city)){
+      this.alert.openCustomMsgErrorSnackBar("Verifique el campo 'Ciudad', debe seleccionar una opción de la lista.");
+      return;
+    }
+    if(!this.checkSocInsSelection(this.socialInsurance.name)){
+      this.alert.openCustomMsgErrorSnackBar("Verifique el campo 'Obra Social', debe seleccionar una opción de la lista.");
+      return;
+    }
     this.savePatient();
   }
 
@@ -200,6 +212,30 @@ export class AddPatientComponent implements OnInit {
     if (socIns) {
       return socIns.name;
     }
+  }
+
+  checkProvSelection(input: string): boolean{
+    var exist = this.provinces.find(x => x.provincia === input);
+    if(exist){
+      return true;
+    }
+    return false;
+  }
+
+  checkCitySelection(input: string): boolean{
+    var exist = this.cities.find(x => x === input);
+    if(exist){
+      return true;
+    }
+    return false;
+  }
+
+  checkSocInsSelection(input: string): boolean{
+    var exist = this.socialInsurances.find(x => x.name === input);
+    if(exist){
+      return true;
+    }
+    return false;
   }
 
 
