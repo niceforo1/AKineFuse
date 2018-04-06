@@ -42,7 +42,7 @@ export class FuseProjectComponent{
 
     this.widget2 = {
       title: 'Pacientes por O.S.',
-      legend       : false,
+      showLegend   : false,
       explodeSlices: false,
       labels       : true,
       doughnut     : true,
