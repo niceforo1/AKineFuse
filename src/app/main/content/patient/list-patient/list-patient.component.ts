@@ -78,4 +78,13 @@ export class ListPatientComponent implements OnInit {
       this.dataSource.filter = filterValue;
   }
 
+  getSocialInsurance(dni : string): string{
+    let patient = this.patients.find(x => x.id === dni);
+    let socIns = '';
+    if(patient.socialInsurance._id){
+      socIns = patient.socialInsurance._id.name + ' / ' + patient.socialInsurance.number;
+    };
+    return socIns;
+  }
+
 }

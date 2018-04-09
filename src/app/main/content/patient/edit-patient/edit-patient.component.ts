@@ -74,17 +74,20 @@ export class EditPatientComponent implements OnInit {
   }
 
   onSubmit() {
-    if(!this.checkProvSelection(this.patient.address.state)){
-      this.alert.openCustomMsgErrorSnackBar("Verifique el campo 'Provincia', debe seleccionar una opción de la lista.");
-      return;
+    if(this.patient.address.state){
+      if(!this.checkProvSelection(this.patient.address.state)){
+        return;
+      }
     }
-    if(!this.checkCitySelection(this.patient.address.city)){
-      this.alert.openCustomMsgErrorSnackBar("Verifique el campo 'Ciudad', debe seleccionar una opción de la lista.");
-      return;
+    if(this.patient.address.city){
+      if(!this.checkCitySelection(this.patient.address.city)){
+        return;
+      }
     }
-    if(!this.checkSocInsSelection(this.socialInsurance.name)){
-      this.alert.openCustomMsgErrorSnackBar("Verifique el campo 'Obra Social', debe seleccionar una opción de la lista.");
-      return;
+    if(this.socialInsurance.name){
+      if(!this.checkSocInsSelection(this.socialInsurance.name)){
+        return;
+      }
     }
     this.savePatient();
   }
@@ -215,20 +218,22 @@ export class EditPatientComponent implements OnInit {
     }
   }
 
-  checkProvSelection(input: string): boolean{
+  checkProvSelection(input: string){
     var exist = this.provinces.find(x => x.provincia === input);
     if(exist){
       return true;
     }
+    this.alert.openCustomMsgErrorSnackBar("Verifique el campo 'Provincia', debe seleccionar una opción de la lista.");
     return false;
   }
 
-  checkCitySelection(input: string): boolean{
+  checkCitySelection(input: string){
     var exist = this.cities.find(x => x === input);
     if(exist){
       return true;
     }
-    return false;
+      this.alert.openCustomMsgErrorSnackBar("Verifique el campo 'Ciudad', debe seleccionar una opción de la lista.");
+      return false;
   }
 
   checkSocInsSelection(input: string): boolean{
@@ -236,7 +241,8 @@ export class EditPatientComponent implements OnInit {
     if(exist){
       return true;
     }
-    return false;
+      this.alert.openCustomMsgErrorSnackBar("Verifique el campo 'Obra Social', debe seleccionar una opción de la lista.");
+      return false;
   }
 
 }

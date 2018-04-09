@@ -41,7 +41,7 @@
       </ng-container>
       <ng-container matColumnDef="socialInsurance">
         <mat-header-cell *matHeaderCellDef>Obra Social</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.socialInsurance._id.name}} / {{element.socialInsurance.number}}</mat-cell>
+        <mat-cell *matCellDef="let element">{{getSocialInsurance(element.id)}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="action">
