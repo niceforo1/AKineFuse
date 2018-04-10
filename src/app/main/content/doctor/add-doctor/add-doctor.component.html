@@ -37,25 +37,28 @@
                 </div>
 
                 <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
-                	<mat-form-field fxFlex="25">
+                	<mat-form-field fxFlex="50">
 						              <input matInput placeholder="Documento" #id="ngModel" type="text" name="id" [(ngModel)]="professional.id" minlength="6" maxlength="9" required>
 			                    <mat-error *ngIf="!id.valid && id.touched">El documento es obligatorio!</mat-error>
                           <mat-error *ngIf="id.number">El documento permite solo números</mat-error>
                     </mat-form-field>
-
-                    <mat-form-field fxFlex="25">
+                  
+                    <mat-form-field fxFlex="50">
                         <input matInput placeholder="Teléfono" #phonesNumber="ngModel" type="text" name="phonesNumber" type="text" [(ngModel)]="professional.phones.number" required>
                         <mat-error *ngIf="!phonesNumber.valid && phonesNumber.touched">
                             El teléfono es obligatorio!
                         </mat-error>
                     </mat-form-field>
-	                <mat-form-field fxFlex="25">
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
+	                <mat-form-field fxFlex="50">
 	                    <input matInput [matDatepicker]="birthdayDatePicker" name="professional.birthDate" placeholder="Fecha Nacimiento" #birthdayDatePicker="ngModel" [(ngModel)]="professional.birthDate">
 	                    <mat-datepicker-toggle matSuffix [for]="birthdayDatePicker"></mat-datepicker-toggle>
 	                    <mat-datepicker #birthdayDatePicker></mat-datepicker>
 	                </mat-form-field>
 
-                     <mat-form-field fxFlex="25">
+                     <mat-form-field fxFlex="50">
                         <mat-select placeholder="Genero" #gender="ngModel" name="gender" [(ngModel)]="professional.gender">
                             <mat-option [value]="''">
                                 Seleccionar genero

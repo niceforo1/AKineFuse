@@ -42,23 +42,25 @@
                 </div>
 
                 <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
-                    <mat-form-field fxFlex="25">
+                    <mat-form-field fxFlex="50">
                         <input matInput #email="ngModel" placeholder="Email" type="email" name="email" [(ngModel)]="patient.email">
                     </mat-form-field>
 
-                    <mat-form-field fxFlex="25">
+                    <mat-form-field fxFlex="50">
                         <input matInput placeholder="Teléfono" #phonesNumber="ngModel" type="text" name="phonesNumber" type="text" [(ngModel)]="patient.phones.number" required>
                         <mat-error *ngIf="!phonesNumber.valid && phonesNumber.touched">
                             El teléfono es obligatorio!
                         </mat-error>
                     </mat-form-field>
-                    <mat-form-field fxFlex="25">
+                </div>
+                <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
+                    <mat-form-field fxFlex="50">
                         <input matInput [matDatepicker]="birthdayDatePicker" name="patient.birthDate" placeholder="Fecha Nacimiento" #birthdayDatePicker="ngModel" [(ngModel)]="patient.birthDate">
                         <mat-datepicker-toggle matSuffix [for]="birthdayDatePicker"></mat-datepicker-toggle>
                         <mat-datepicker #birthdayDatePicker></mat-datepicker>
                     </mat-form-field>
 
-                     <mat-form-field fxFlex="25">
+                     <mat-form-field fxFlex="50">
                         <mat-select placeholder="Genero" #gender="ngModel" name="gender" [(ngModel)]="patient.gender">
                             <mat-option [value]="''">
                                 Seleccionar genero
@@ -74,7 +76,13 @@
                 </div>
 
                 <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
-                  <mat-form-field fxFlex="25">
+                  <mat-form-field fxFlex="100">
+                    <input matInput #addressStreet="ngModel" placeholder="Dirección" type="text" name="addressStreet" [(ngModel)]="patient.address.street">
+                  </mat-form-field>
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
+                  <mat-form-field fxFlex="40">
                      <input type="text" placeholder="Provincia" aria-label="Provincia" name="prov" [(ngModel)]="patient.address.state" matInput [formControl]="myControlProv" [matAutocomplete]="auto" (blur)="onChange()">
                      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnProv">
                          <mat-option *ngFor="let option of filteredOptionsProv | async" [value]="option.provincia">
@@ -83,7 +91,7 @@
                      </mat-autocomplete>
                  </mat-form-field>
 
-                 <mat-form-field fxFlex="25">
+                 <mat-form-field fxFlex="40">
                       <input type="text" placeholder="Ciudad" aria-label="Ciudad" name="city" [(ngModel)]="patient.address.city" matInput [formControl]="myControlCity" [matAutocomplete]="auto2" >
                       <mat-autocomplete #auto2="matAutocomplete" [displayWith]="displayFnCity">
                           <mat-option *ngFor="let option of filteredOptionsCity | async" [value]="option">
@@ -91,13 +99,9 @@
                           </mat-option>
                       </mat-autocomplete>
                   </mat-form-field>
-                  <mat-form-field fxFlex="25">
+                  <mat-form-field fxFlex="20">
                       <input matInput #zip="ngModel" placeholder="Código Postal" type="text" name="zip" [(ngModel)]="patient.address.zip">
                   </mat-form-field>
-                  <mat-form-field fxFlex="25">
-                      <input matInput #addressStreet="ngModel" placeholder="Dirección" type="text" name="addressStreet" [(ngModel)]="patient.address.street">
-                  </mat-form-field>
-
                 </div>
 
                 <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
