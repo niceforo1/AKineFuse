@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material';
-
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition
+} from '@angular/material';
 
 @Component({
-
+  template: `
+        `
 })
-export class AlertComponent
-{
-
+export class AlertComponent {
   horizontalPosition: MatSnackBarHorizontalPosition;
   verticalPosition: MatSnackBarVerticalPosition;
   errorDuplicado: any;
@@ -17,10 +19,9 @@ export class AlertComponent
   genericError: any;
   genericDeleteOk: any;
 
-
   constructor(public snackBar: MatSnackBar, private _router: Router) {
-    this.horizontalPosition  = 'center';
-    this.verticalPosition  = 'top';
+    this.horizontalPosition = 'center';
+    this.verticalPosition = 'top';
 
     this.errorDuplicado = {
       message: 'Ya se encuentra registrada una persona con el DNI ingresado.'
@@ -66,7 +67,7 @@ export class AlertComponent
       verticalPosition: this.verticalPosition,
       panelClass: ['successSnackBar']
     });
-    if(config.navigate){
+    if (config.navigate) {
       this._router.navigate([config.navigate]);
     }
   }

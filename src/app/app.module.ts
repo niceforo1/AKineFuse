@@ -14,26 +14,24 @@ import { FuseSampleModule } from './main/content/sample/sample.module';
 import { DoctorModule } from './main/content/doctor/doctor.module';
 import { PatientModule } from './main/content/patient/patient.module';
 import { DialogModule } from './main/content/dialog/dialog.module';
+import { AlertModule } from './main/content/alerts/alert.module';
 import { TranslateModule } from '@ngx-translate/core';
-import {FuseProjectDashboardModule} from './main/content/dashboards/project/project.module';
+import { FuseProjectDashboardModule } from './main/content/dashboards/project/project.module';
 
 const appRoutes: Routes = [
     {
-        path      : '**',
+        path: '**',
         redirectTo: '/pages/auth/login-2'
     },
     {
-        path        : 'pages',
+        path: 'pages',
         loadChildren: './main/content/pages/pages.module#FusePagesModule'
     }
-
 ];
 
 @NgModule({
-    declarations: [
-        AppComponent
-    ],
-    imports     : [
+    declarations: [AppComponent],
+    imports: [
         BrowserModule,
         HttpClientModule,
         BrowserAnimationsModule,
@@ -45,17 +43,14 @@ const appRoutes: Routes = [
         FuseProjectDashboardModule,
         DoctorModule,
         PatientModule,
-        DialogModule
+        DialogModule,
+        AlertModule
     ],
-    providers   : [
+    providers: [
         FuseSplashScreenService,
         FuseConfigService,
         FuseNavigationService
     ],
-    bootstrap   : [
-        AppComponent
-    ]
+    bootstrap: [AppComponent]
 })
-export class AppModule
-{
-}
+export class AppModule {}
