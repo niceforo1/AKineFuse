@@ -18,6 +18,7 @@ export class AlertComponent {
   successPatient: any;
   genericError: any;
   genericDeleteOk: any;
+  successSocIns : any;
 
   constructor(public snackBar: MatSnackBar, private _router: Router) {
     this.horizontalPosition = 'center';
@@ -33,6 +34,9 @@ export class AlertComponent {
     this.successPatient = {
       message: 'El paciente fue guardado correctamente.',
       navigate: '/list-patients'
+    };
+    this.successSocIns = {
+      message: 'La obra social fue guardada correctamente.'
     };
     this.genericError = {
       message: 'Se ha producido un error, intente nuevamente.'

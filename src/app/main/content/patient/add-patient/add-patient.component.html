@@ -105,11 +105,14 @@
                 </div>
 
                 <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
-                  <mat-form-field fxFlex="50">
+                  <mat-icon (click)="addSocIns()" style="cursor: pointer;" fxFlex="2">
+                    add_circle
+                  </mat-icon>
+                  <mat-form-field fxFlex="48">
                       <input type="text" placeholder="Obra Social" aria-label="ObraSocial" name="obraSocial" [(ngModel)]="socialInsurance" matInput [formControl]="myControlSIns" [matAutocomplete]="auto3" >
                       <mat-autocomplete #auto3="matAutocomplete" [displayWith]="displaySIns">
                           <mat-option *ngFor="let option of filteredOptionsSIns | async" [value]="option">
-                              {{ option.name }}
+                                {{ option.name }}
                           </mat-option>
                       </mat-autocomplete>
                   </mat-form-field>

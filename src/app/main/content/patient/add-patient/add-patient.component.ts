@@ -12,6 +12,7 @@ import { Phone } from '../../../models/Phone';
 import { SocialInsurance } from '../../../models/SocialInsurance';
 /*Dialog*/
 import { DialogConfigComponent } from '../../dialog/dialogConfig.component';
+import { DialogConfigSocInsComponent } from '../../socialInsurance/dialogConfig-add-SocIns.component';
 /*Alert*/
 import { AlertComponent } from '../../alerts/alert.component';
 /*Autocomplete*/
@@ -30,6 +31,7 @@ import { map } from 'rxjs/operators/map';
     SocialInsuranceService,
     LocationService,
     DialogConfigComponent,
+    DialogConfigSocInsComponent,
     AlertComponent
   ]
 })
@@ -57,6 +59,7 @@ export class AddPatientComponent implements OnInit {
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
     private dialog: DialogConfigComponent,
+    private dialogSocIns: DialogConfigSocInsComponent,
     public alert: AlertComponent
   ) {
     this.action = 'Guardar';
@@ -93,7 +96,7 @@ export class AddPatientComponent implements OnInit {
       }
     }
     if(this.socialInsurance.name){
-      if(!this.checkSocInsSelection(this.socialInsurance.name)){        
+      if(!this.checkSocInsSelection(this.socialInsurance.name)){
         return;
       }
     }
@@ -242,6 +245,19 @@ export class AddPatientComponent implements OnInit {
     }
       this.alert.openCustomMsgErrorSnackBar("Verifique el campo 'Obra Social', debe seleccionar una opción de la lista.");
       return false;
+  }
+
+  addSocIns(){
+    let dialogRef = this.dialogSocIns.openDialog(this.dialogSocIns.config);
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        //ACA VA EL LLAMADO A LA API PARA AGREGAR OBRA SOCIAL
+        console.log(result);
+      }else{
+        //POR ACA SALE CUANDO LE DAS CANCELAR
+        console.log("salio por cancelar");
+      }
+    });
   }
 
 
