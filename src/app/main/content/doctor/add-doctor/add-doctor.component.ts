@@ -1,85 +1,242 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+/* Services */
+import { ProfessionalService } from '../../../services/professional.service';
+import { SocialInsuranceService } from '../../../services/socialInsurance.service';
+import { LocationService } from '../../../services/location.service';
+/* Models */
 import { Professional } from '../../../models/Professional';
 import { Phone } from '../../../models/Phone';
 import { Address } from '../../../models/Address';
 import { SocialInsurance } from '../../../models/SocialInsurance';
-import { ProfessionalService } from '../../../services/professional.service';
 /*Dialog*/
 import { DialogConfigComponent } from '../../dialog/dialogConfig.component';
 /*Alert*/
 import { AlertComponent } from '../../alerts/alert.component';
+import {Observable} from 'rxjs/Observable';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-add-doctor',
   templateUrl: 'add-doctor.component.html',
   providers: [
     ProfessionalService,
+    SocialInsuranceService,
+    LocationService,
     DialogConfigComponent,
     AlertComponent
   ]
 })
 
 export class AddDoctorComponent implements OnInit {
-  action : string;
+  action: string;
   title: string;
-  professional : any;
-  phone : Phone;
-  address : Address;
-  socialInsurance : SocialInsurance;
-  socialInsurances : SocialInsurance[];
-  id_doctor = "new";
+  professional: any;
+  socialInsurances: any;
+  socialInsurance: SocialInsurance;
+  id_doctor = 'new';
+  provinces: any;
+  cities: any;
 
-  constructor(private _professionalService: ProfessionalService, private _router: Router,
-              public dialogConfig: DialogConfigComponent, public alert: AlertComponent) {
+  myControlProv = new FormControl();
+  myControlCity = new FormControl();
+  myControlSIns = new FormControl();
+  filteredOptionsProv: Observable<any[]>;
+  filteredOptionsSIns: Observable<any[]>;
+  filteredOptionsCity: Observable<any[]>;
+
+  constructor(
+    private _professionalService: ProfessionalService,
+    private _socialInsuranceService: SocialInsuranceService,
+    private _locationService: LocationService,
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute,
+    public dialogConfig: DialogConfigComponent,
+    public alert: AlertComponent
+  ) {
+    this.action = 'Guardar';
+    this.title = 'Agregar Licenciado';
     this.professional = new Professional();
-    this.action = "Guardar";
-    this.title = "Agregar Licenciado";
     this.socialInsurances = new Array();
-    this.professional = new Professional();
     /*PHONE*/
     this.professional.phones = new Phone();
     this.professional.phones.main = true;
-    this.professional.phones.type = "Celular";
+    this.professional.phones.type = 'Celular';
     /*ADDRESS*/
     this.professional.address = new Address();
-    this.professional.address.city = "Cordoba";
-    this.professional.address.state = "Cordoba";
-    this.professional.address.neighborhood = "Centro";
-    this.professional.address.zip = "5000";
     /*SOCIAL INSURANCE*/
-    this.professional.socialInsurance = new SocialInsurance();
-    this.professional.socialInsurance.name = "Swiss Medical";
-    this.professional.socialInsurance.contact = '123456';
-    this.professional.socialInsurance.email = 'swiss.medical@sw.com';
+    this.socialInsurances = new Array();
+    /*Provincias*/
+    this.provinces = new Array();
   }
 
   ngOnInit() {
-
+    this.getSocialInsurances();
+    this.getProvinces();
   }
 
   onSubmit() {
-    this.socialInsurances.push(this.socialInsurance);
-    this.professional.socialInsurance = this.socialInsurances;
-    this.saveProfessional();
+      if (this.professional.address.state){
+          if (!this.checkProvSelection(this.professional.address.state)){
+              return;
+          }
+      }
+      if (this.professional.address.city){
+          if (!this.checkCitySelection(this.professional.address.city)){
+              return;
+          }
+      }
+      /*
+      if (this.socialInsurance.name){
+          if (!this.checkSocInsSelection(this.socialInsurance.name)){
+              return;
+          }
+      }
+      */
+      this.saveProfessional();
+  }
+
+  onChange() {
+      if (!this.professional.address.state) {
+          return;
+      }
+      this.professional.address.city = null;
+      this._locationService.getCities(this.professional.address.state).subscribe(
+          data => {
+              if (data[0] === undefined) {
+                  this.cities = [];
+                  this.filteredOptionsCity = null;
+                  return;
+              }
+              this.cities = data[0].localidad;
+              this.filteredOptionsCity = this.myControlCity.valueChanges
+                  .startWith(null)
+                  .map(city => (city ? this.filterCity(city) : this.cities.slice()));
+              return;
+          },
+          err => {
+              this.alert.openErrorSnackBar(this.alert.genericError);
+          }
+      );
   }
 
   saveProfessional() {
-    this._professionalService.getProfessionalByDoc(this.professional.id).subscribe(data => {
-      if (data) {
-        this.alert.openErrorSnackBar(this.alert.errorDuplicado);
-      } else {
-        this._professionalService.saveProfessional(this.professional).subscribe(data => {
-          this.alert.openSuccessSnackBar(this.alert.successProfessional);
-        },
-        err => {
-          this.alert.openErrorSnackBar(this.alert.genericError);
-        });
+    this._professionalService.getProfessionalByDoc(this.professional.id).subscribe(
+      data => {
+        if (data) {
+          this.alert.openErrorSnackBar(this.alert.errorDuplicado);
+        } else {
+          this._professionalService.saveProfessional(this.professional).subscribe(data => {
+            this.alert.openSuccessSnackBar(this.alert.successProfessional);
+          });
+        }
+      },
+      err => {
+        this.alert.openErrorSnackBar(this.alert.genericError);
       }
-    },
-    err => {
-      this.alert.openErrorSnackBar(this.alert.genericError);
+    );
+  }
+
+  getSocialInsurances() {
+    this._socialInsuranceService.getSocialInsurance().subscribe(
+      response => {
+        this.socialInsurances = response;
+        this.filteredOptionsSIns = this.myControlSIns.valueChanges
+          .startWith(null)
+          .map(
+            sIns => (sIns ? this.filterSIns(sIns) : this.socialInsurances.slice())
+          );
+      },
+      err => {
+        this.alert.openErrorSnackBar(this.alert.genericError);
+      }
+    );
+  }
+
+  getProvinces() {
+    this._locationService.getProvinces().subscribe(
+      data => {
+        this.provinces = data;
+        this.filteredOptionsProv = this.myControlProv.valueChanges
+          .startWith(null)
+          .map(
+            prov => (prov ? this.filterProvinces(prov) : this.provinces.slice())
+          );
+      },
+      err => {
+        this.alert.openErrorSnackBar(this.alert.genericError);
+      }
+    );
+  }
+
+  filterProvinces(prov: string): any[] {
+    return this.provinces.filter(option => {
+      return option.provincia.toLowerCase().indexOf(prov.toLowerCase()) === 0;
     });
+  }
+
+  filterCity(city: string): any[] {
+    return this.cities.filter(option => {
+      return option.toLowerCase().indexOf(city.toLowerCase()) === 0;
+    });
+  }
+
+  filterSIns(socIns: any): any[] {
+    if (typeof(socIns) === 'object'){
+      return this.socialInsurances.filter(option => {
+        return option.name.toLowerCase().indexOf(socIns.name.toLowerCase()) === 0;
+      });
+    }
+    if (typeof(socIns) === 'string'){
+      return this.socialInsurances.filter(option => {
+        return option.name.toLowerCase().indexOf(socIns.toLowerCase()) === 0;
+      });
+    }
+  }
+
+  displayFnProv(prov: string): string {
+    if (prov) {
+      return prov;
+    }
+  }
+
+  displayFnCity(city: string): string {
+    if (city) {
+      return city;
+    }
+  }
+
+  displaySIns(socIns: any): string {
+    if (socIns) {
+      return socIns.name;
+    }
+  }
+
+  checkProvSelection(input: string){
+    let exist = this.provinces.find(x => x.provincia === input);
+    if (exist){
+      return true;
+    }
+    this.alert.openCustomMsgErrorSnackBar("Verifique el campo 'Provincia', debe seleccionar una opción de la lista.");
+    return false;
+  }
+
+  checkCitySelection(input: string){
+    let exist = this.cities.find(x => x === input);
+    if (exist){
+      return true;
+    }
+    this.alert.openCustomMsgErrorSnackBar("Verifique el campo 'Ciudad', debe seleccionar una opción de la lista.");
+    return false;
+  }
+
+  checkSocInsSelection(input: string): boolean{
+    let exist = this.socialInsurances.find(x => x.name === input);
+    if (exist){
+      return true;
+    }
+    this.alert.openCustomMsgErrorSnackBar("Verifique el campo 'Obra Social', debe seleccionar una opción de la lista.");
+    return false;
   }
 
 }

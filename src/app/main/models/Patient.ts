@@ -1,6 +1,6 @@
 import {Address} from './Address';
 import {Phone} from './Phone';
-import {PatientSocialInsurance} from './patientSocialInsurance';
+import {SocialInsurance} from './SocialInsurance';
 
 export class Patient {
   public _id: string;
@@ -23,7 +23,7 @@ export class Patient {
   };
   public address: Address;
   public phones : Phone;
-  public socialInsurance : PatientSocialInsurance;
+  public socialInsurance : SocialInsurance;
   constructor() {
   }
 }

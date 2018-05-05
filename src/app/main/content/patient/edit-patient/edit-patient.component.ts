@@ -6,12 +6,11 @@ import {SocialInsuranceService} from '../../../services/socialInsurance.service'
 import { LocationService } from '../../../services/location.service';
 /* Models */
 import {Patient} from '../../../models/patient';
-import {PatientSocialInsurance} from '../../../models/patientSocialInsurance';
 import {Address} from '../../../models/Address';
 import {Phone} from '../../../models/Phone';
 import {SocialInsurance} from '../../../models/SocialInsurance';
 /*Dialog*/
-import { DialogConfigComponent }from '../../dialog/dialogConfig.component';
+import { DialogConfigComponent } from '../../dialog/dialogConfig.component';
 /*Alert*/
 import { AlertComponent } from '../../alerts/alert.component';
 /*Autocomplete*/
@@ -40,7 +39,7 @@ export class EditPatientComponent implements OnInit {
   patient: any;
   socialInsurances: any;
   socialInsurance: SocialInsurance;
-  id_patient : string;
+  id_patient: string;
   provinces: any;
   cities: any;
 
@@ -51,17 +50,24 @@ export class EditPatientComponent implements OnInit {
   filteredOptionsSIns: Observable<any[]>;
   filteredOptionsCity: Observable<any[]>;
 
-  constructor(private _patientService: PatientService, private _socialInsuranceService: SocialInsuranceService,
-              private _router: Router, private _activatedRoute: ActivatedRoute, public dialogConfig: DialogConfigComponent,
+  constructor(private _patientService: PatientService,
+              private _socialInsuranceService: SocialInsuranceService,
+              private _router: Router,
+              private _activatedRoute: ActivatedRoute,
+              public dialogConfig: DialogConfigComponent,
               public alert: AlertComponent,
               private _locationService: LocationService) {
     this.action = 'Editar';
     this.title = 'Editar Paciente';
+    /*PATIENT*/
     this.patient = new Patient();
-    this.patient.socialInsurance = new PatientSocialInsurance();
-    this.socialInsurance = new SocialInsurance();
+    this.patient.socialInsurance = new SocialInsurance();
+    /*PHONE*/
     this.patient.phones = new Phone();
+    /*ADDRESS*/
     this.patient.address = new Address();
+    /*SOCIAL INSURANCE*/
+    this.socialInsurance = new SocialInsurance();
     this.socialInsurances = new Array();
     /*Provincias*/
     this.provinces = new Array();
@@ -74,18 +80,18 @@ export class EditPatientComponent implements OnInit {
   }
 
   onSubmit() {
-    if(this.patient.address.state){
-      if(!this.checkProvSelection(this.patient.address.state)){
+    if (this.patient.address.state){
+      if (!this.checkProvSelection(this.patient.address.state)){
         return;
       }
     }
-    if(this.patient.address.city){
-      if(!this.checkCitySelection(this.patient.address.city)){
+    if (this.patient.address.city){
+      if (!this.checkCitySelection(this.patient.address.city)){
         return;
       }
     }
-    if(this.socialInsurance.name){
-      if(!this.checkSocInsSelection(this.socialInsurance.name)){
+    if (this.socialInsurance){
+      if (!this.checkSocInsSelection(this.socialInsurance.name)){
         return;
       }
     }
@@ -110,7 +116,7 @@ export class EditPatientComponent implements OnInit {
   }
 
   getPatients(){
-    this._activatedRoute.params.forEach((params:Params)=>{
+    this._activatedRoute.params.forEach((params: Params)=>{
       this.id_patient = params['id'];
       this._patientService.searchPatient(this.id_patient).subscribe(response => {
         this.patient = response;
@@ -188,12 +194,12 @@ export class EditPatientComponent implements OnInit {
   }
 
   filterSIns(socIns: any): any[] {
-    if(typeof(socIns) == 'object'){
+    if (typeof(socIns) == 'object'){
       return this.socialInsurances.filter(option => {
         return option.name.toLowerCase().indexOf(socIns.name.toLowerCase()) === 0;
       });
-    };
-    if(typeof(socIns) == 'string'){
+    }
+    if (typeof(socIns) == 'string'){
       return this.socialInsurances.filter(option => {
         return option.name.toLowerCase().indexOf(socIns.toLowerCase()) === 0;
       });
@@ -219,8 +225,8 @@ export class EditPatientComponent implements OnInit {
   }
 
   checkProvSelection(input: string){
-    var exist = this.provinces.find(x => x.provincia === input);
-    if(exist){
+    let exist = this.provinces.find(x => x.provincia === input);
+    if (exist){
       return true;
     }
     this.alert.openCustomMsgErrorSnackBar("Verifique el campo 'Provincia', debe seleccionar una opción de la lista.");
@@ -228,8 +234,8 @@ export class EditPatientComponent implements OnInit {
   }
 
   checkCitySelection(input: string){
-    var exist = this.cities.find(x => x === input);
-    if(exist){
+    let exist = this.cities.find(x => x === input);
+    if (exist){
       return true;
     }
       this.alert.openCustomMsgErrorSnackBar("Verifique el campo 'Ciudad', debe seleccionar una opción de la lista.");
@@ -237,8 +243,8 @@ export class EditPatientComponent implements OnInit {
   }
 
   checkSocInsSelection(input: string): boolean{
-    var exist = this.socialInsurances.find(x => x.name === input);
-    if(exist){
+    let exist = this.socialInsurances.find(x => x.name === input);
+    if (exist){
       return true;
     }
       this.alert.openCustomMsgErrorSnackBar("Verifique el campo 'Obra Social', debe seleccionar una opción de la lista.");
