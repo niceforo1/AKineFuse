@@ -22,6 +22,14 @@ export class FuseNavigationModel implements FuseNavigationModelInterface
                         'icon': 'person_outline'
                     },
                     {
+                        'id'   : 'addDoctor2',
+                        'title': 'Agregar Licenciado2',
+                        'translate': 'Agregar Licenciado2',
+                        'type' : 'item',
+                        'url'  : '/add-doctor2',
+                        'icon': 'person_outline'
+                    },
+                    {
                         'id'   : 'listDoctors',
                         'title': 'Listar Licenciados',
                         'translate': 'Listar Licenciados',
