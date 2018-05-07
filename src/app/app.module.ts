@@ -13,6 +13,7 @@ import { FuseNavigationService } from './core/components/navigation/navigation.s
 import { FuseSampleModule } from './main/content/sample/sample.module';
 import { DoctorModule } from './main/content/doctor/doctor.module';
 import { PatientModule } from './main/content/patient/patient.module';
+import { SettingModule } from './main/content/setting/setting.module';
 import { DialogModule } from './main/content/dialog/dialog.module';
 import { DialogSocInsModule } from './main/content/socialInsurance/dialogSocIns.module';
 import { AlertModule } from './main/content/alerts/alert.module';
@@ -44,6 +45,7 @@ const appRoutes: Routes = [
         FuseProjectDashboardModule,
         DoctorModule,
         PatientModule,
+        SettingModule,
         DialogModule,
         DialogSocInsModule,
         AlertModule
