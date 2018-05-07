@@ -1,0 +1,62 @@
+<!-- <div class="example-container mat-elevation-z8"> -->
+<div class="page-layout simple fullwidth" fxLayout="column" fusePerfectScrollbar>
+
+    <!-- HEADER -->
+    <div class="header mat-accent-bg p-24 h-160" fxLayout="row" fxLayoutAlign="start center">
+        <div fxLayout="column" fxLayoutAlign="center start">
+            <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="secondary-text s-16">home</mat-icon>
+                <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+                <span class="secondary-text">Ajustes</span>
+            </div>
+            <div class="h1 mt-16">Lista de Obras Sociales</div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <div class="example-header">
+        <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Búscar">
+        </mat-form-field>
+    </div>
+
+    <mat-table #table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="responsibleContact">
+        <mat-header-cell *matHeaderCellDef>Responsable</mat-header-cell>
+        <mat-cell *matCellDef="let element"><mat-icon>person</mat-icon>{{element.contact}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="contact">
+        <mat-header-cell *matHeaderCellDef>Contacto</mat-header-cell>
+        <mat-cell *matCellDef="let element"><mat-icon>mail_outline</mat-icon>{{element.email}}
+                                        <br><mat-icon>phone</mat-icon>{{element.phones}}
+                                        <br><mat-icon>location_city</mat-icon>{{element.address}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef>Eliminar/Editar</mat-header-cell>
+        <mat-cell *matCellDef="let element; let i = index;" >
+          <button (click)="deleteSocialInsurance(element, i)" style="cursor: pointer;">
+            <mat-icon>delete_forever</mat-icon>
+          </button>
+<!--
+          <button [routerLink]="['/edit-social-insurance', element._id]" style="cursor: pointer;">
+            <mat-icon>mode_edit</mat-icon>
+          </button>
+-->
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">{{row}}</mat-row>
+    </mat-table>
+    <mat-paginator #paginator [pageSize]="15">
+    </mat-paginator>
+</div>
