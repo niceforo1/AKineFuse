@@ -63,14 +63,22 @@ export class FuseNavigationModel implements FuseNavigationModelInterface
                     }
                 ]
             },
-			{
+			      {
                 'id'      : 'setting',
                 'title'   : 'Ajustes',
                 'translate': 'Ajustes',
                 'type'    : 'group',
                 'children': [
                     {
-                        'id'   : 'listPatients',
+                        'id'   : 'addSocialInsurance',
+                        'title': 'Agregar Obras Sociales',
+                        'translate': 'Agregar Obras Sociales',
+                        'type' : 'item',
+                        'url'  : '/add-social-insurance',
+                        'icon': 'work'
+                    },
+                    {
+                        'id'   : 'listSocialInsurances',
                         'title': 'Listar de Obras Sociales',
                         'translate': 'Listar de Obras Sociales',
                         'type' : 'item',

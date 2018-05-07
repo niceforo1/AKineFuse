@@ -10,6 +10,9 @@ export class SocialInsuranceService {
   getSocialInsurance() {
     return this._http.get(this.urlMain);
   }
+  getSocialInsuranceByName(name: string){
+    return this._http.get(`${this.urlMain}Name/${name}`);
+  }
 
   deleteSocialInsurance(_id) {
     let url: string = `${this.urlMain}/${_id}`;
@@ -27,4 +30,6 @@ export class SocialInsuranceService {
   updateSocialInsurance(socialInsurance, id) {
     return this._http.put(`${this.urlMain}/${id}`, socialInsurance);
   }
+
+
 }

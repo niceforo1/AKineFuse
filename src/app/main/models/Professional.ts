@@ -15,8 +15,8 @@ export class Professional {
   public license: string;
   public specialities: string;
   public address: Address;
-  public phones : Phone;
-  public socialInsurance : SocialInsurance[];
+  public phones: Phone;
+  public socialInsurance: SocialInsurance[];
   constructor() {
   }
 }

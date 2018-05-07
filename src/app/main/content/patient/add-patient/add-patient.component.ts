@@ -130,7 +130,7 @@ export class AddPatientComponent implements OnInit {
     this._patientService.getPatientByDoc(this.patient.id).subscribe(
       data => {
         if (data) {
-          this.alert.openErrorSnackBar(this.alert.errorDuplicado);
+          this.alert.openErrorSnackBar(this.alert.errorDocumentoDuplicado);
         } else {
           this._patientService.savePatient(this.patient).subscribe(data => {
             this.alert.openSuccessSnackBar(this.alert.successPatient);

@@ -22,8 +22,8 @@ export class Patient {
     habits: string
   };
   public address: Address;
-  public phones : Phone;
-  public socialInsurance : SocialInsurance;
+  public phones: Phone;
+  public socialInsurance: SocialInsurance;
   constructor() {
   }
 }

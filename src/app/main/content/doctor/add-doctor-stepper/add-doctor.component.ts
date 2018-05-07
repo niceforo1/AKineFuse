@@ -165,7 +165,7 @@ export class AddDoctorComponent2 implements OnInit
       this._professionalService.getProfessionalByDoc(this.professional.id).subscribe(
         data => {
           if (data) {
-            this.alert.openErrorSnackBar(this.alert.errorDuplicado);
+            this.alert.openErrorSnackBar(this.alert.errorDocumentoDuplicado);
           } else {
             this._professionalService.saveProfessional(this.professional).subscribe(data => {
               this.alert.openSuccessSnackBar(this.alert.successProfessional);
