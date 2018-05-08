@@ -14,8 +14,13 @@ import { SocialInsurance } from '../../../models/SocialInsurance';
 import { DialogConfigComponent } from '../../dialog/dialogConfig.component';
 /*Alert*/
 import { AlertComponent } from '../../alerts/alert.component';
-import {Observable} from 'rxjs/Observable';
-import {FormControl} from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
+import { FormControl } from '@angular/forms';
+/*CHIPS*/
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { ElementRef, ViewChild } from '@angular/core';
+import { MatAutocompleteSelectedEvent, MatChipInputEvent } from '@angular/material';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
     selector   : 'app-add-doctor',
@@ -34,8 +39,6 @@ export class AddDoctorComponent2 implements OnInit
     action: string;
     title: string;
     professional: any;
-    socialInsurances: any;
-    socialInsurance: SocialInsurance;
     id_doctor = 'new';
     provinces: any;
     cities: any;
@@ -44,7 +47,6 @@ export class AddDoctorComponent2 implements OnInit
     myControlCity = new FormControl();
     myControlSIns = new FormControl();
     filteredOptionsProv: Observable<any[]>;
-    filteredOptionsSIns: Observable<any[]>;
     filteredOptionsCity: Observable<any[]>;
     form: FormGroup;
 
@@ -53,6 +55,17 @@ export class AddDoctorComponent2 implements OnInit
     Step2: FormGroup;
     Step3: FormGroup;
     Step4: FormGroup;
+
+    //CHIPS
+    visible: boolean = true;
+    selectable: boolean = true;
+    removable: boolean = true;
+    addOnBlur: boolean = false;
+    separatorKeysCodes = [ENTER, COMMA];
+    filteredOptionsSIns: Observable<any[]>;
+    socialInsurances: any;
+    socialInsurance: SocialInsurance;
+    @ViewChild('socInsInput') socInsInput: ElementRef;
 
     constructor(private formBuilder: FormBuilder,
                 private _professionalService: ProfessionalService,
@@ -76,8 +89,10 @@ export class AddDoctorComponent2 implements OnInit
         this.professional.address = new Address();
         /*SOCIAL INSURANCE*/
         this.socialInsurances = new Array();
+        this.professional.socialInsurance = new Array();
         /*Provincias*/
         this.provinces = new Array();
+
 
     }
 
@@ -85,12 +100,12 @@ export class AddDoctorComponent2 implements OnInit
     {
         this.getSocialInsurances();
         this.getProvinces();
-        // Horizontal Stepper form steps
+        // Horizontal Stepper form steps , Validators.required
         this.Step1 = this.formBuilder.group({
-            name: ['', Validators.required],
-            lastName : ['', Validators.required],
-            id : ['', Validators.required],
-            phonesNumber : ['', Validators.required],
+            name: [''],
+            lastName : [''],
+            id : [''],
+            phonesNumber : [''],
             email : [''],
             birthDate : [''],
             gender : [''],
@@ -100,8 +115,8 @@ export class AddDoctorComponent2 implements OnInit
         });
 
         this.Step2 = this.formBuilder.group({
-            professionalLicense: ['', Validators.required],
-            professionalSpecialities : ['', Validators.required]
+            professionalLicense: [''],
+            professionalSpecialities : ['']
         });
 
         this.Step3 = this.formBuilder.group({
@@ -127,13 +142,6 @@ export class AddDoctorComponent2 implements OnInit
               return;
           }
       }
-      /*
-      if (this.socialInsurance.name){
-          if (!this.checkSocInsSelection(this.socialInsurance.name)){
-              return;
-          }
-      }
-      */
       this.saveProfessional();
     }
 
@@ -272,11 +280,29 @@ export class AddDoctorComponent2 implements OnInit
     }
 
     checkSocInsSelection(input: string): boolean{
-      let exist = this.socialInsurances.find(x => x.name === input);
-      if (exist){
+      let exist = this.professional.socialInsurance.find(x => x.name === input);
+      if (!exist){
         return true;
       }
-      this.alert.openCustomMsgErrorSnackBar("Verifique el campo 'Obra Social', debe seleccionar una opción de la lista.");
+      this.alert.openCustomMsgErrorSnackBar("La obra social ya se encuentra seleccionada.");
       return false;
     }
+
+    removeSocialInsurance(socIns: any): void {
+      let index = this.professional.socialInsurance.indexOf(socIns);
+      //Remove
+      if (index >= 0) {
+        this.professional.socialInsurance.splice(index, 1);
+      }
+    }
+
+    selected(): void {
+      let duplicated = this.checkSocInsSelection(this.socialInsurance.name);
+      if(duplicated){
+        this.professional.socialInsurance.push(this.socialInsurance);
+        this.socialInsurance = null;
+        this.socInsInput.nativeElement.value = '';
+      }
+    }
+
 }

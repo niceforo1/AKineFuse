@@ -46,7 +46,8 @@ export class AlertComponent {
       navigate: '/list-patients'
     };
     this.successSocIns = {
-      message: 'La obra social fue guardada correctamente.'
+      message: 'La obra social fue guardada correctamente.',
+      navigate: '/list-social-insurances'
     };
     // ENTITIES - ERRORS //
     this.errorDocumentoDuplicado = {

@@ -19,7 +19,7 @@
         <div class="horizontal-stepper-wrapper">
 
             <mat-horizontal-stepper class="mat-elevation-z4" [linear]="true">
-
+                        <!-- / PASO 1 -->
                 <mat-step [stepControl]="Step1">
 
                     <form [formGroup]="Step1" class="mat-white-bg p-24 mr-24 mb-24" fxLayout="column" fxLayoutAlign="start"
@@ -119,7 +119,7 @@
                 </mat-step>
 
                 <mat-step [stepControl]="Step2" >
-
+                        <!-- / PASO 2 -->
                     <form [formGroup]="Step2" class="mat-white-bg  p-24  " fxLayout="column" fxLayoutAlign="start"
                           fxFlex="1 0 auto">
 
@@ -151,13 +151,40 @@
                 </mat-step>
 
                 <mat-step [stepControl]="Step3">
-
+                        <!-- / PASO 3 -->
                     <form [formGroup]="Step3" class="mat-white-bg  p-24 " fxLayout="column" fxLayoutAlign="start"
                           fxFlex="1 0 auto">
 
                         <ng-template matStepLabel>Obras sociales</ng-template>
 
-                        <!-- / CHIPS DE OBRAS SOCIALES -->
+                        <mat-form-field class="demo-chip-list">
+                            <mat-chip-list #chipList>
+                              <mat-chip class="mat-chip"
+                                *ngFor="let socIns of professional.socialInsurance"
+                                [selectable]="selectable"
+                                [removable]="removable"
+                                selected="true" [color]="primary"
+                                (removed)="removeSocialInsurance(socIns)"
+                                >
+                                {{socIns.name}}
+                                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                              </mat-chip>
+                              <input
+                                placeholder="Seleccione sus obras sociales"
+                                #socInsInput
+                                [(ngModel)]="socialInsurance"
+                                [formControl]="myControlSIns"
+                                [matAutocomplete]="autoSocIns"
+                                [matChipInputFor]="chipList"
+                                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                [matChipInputAddOnBlur]="addOnBlur"/>
+                            </mat-chip-list>
+                            <mat-autocomplete #autoSocIns="matAutocomplete" (optionSelected)="selected()">
+                              <mat-option *ngFor="let socIns of filteredOptionsSIns | async" [value]="socIns">
+                                {{ socIns.name }}
+                              </mat-option>
+                            </mat-autocomplete>
+                          </mat-form-field>
 
                         <div class="pt-24" fxLayout="row" fxLayoutAlign="center center">
                             <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
@@ -173,13 +200,12 @@
                 </mat-step>
 
                 <mat-step [stepControl]="Step4">
-
+                        <!-- / PASO 4 -->
                     <form [formGroup]="Step4" class="mat-white-bg  p-24" fxLayout="column" fxLayoutAlign="start"
                           fxFlex="1 0 auto">
 
                         <ng-template matStepLabel>Horarios</ng-template>
 
-                        <!-- / CHIPS DE OBRAS SOCIALES -->
 
                         <div class="pt-24" fxLayout="row" fxLayoutAlign="center center">
                             <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
