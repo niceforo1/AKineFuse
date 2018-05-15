@@ -36,6 +36,14 @@ export class FuseNavigationModel implements FuseNavigationModelInterface
                         'type' : 'item',
                         'url'  : '/list-doctors',
                         'icon': 'people_outline'
+                    },
+                    {
+                      'id'   : 'scheduleDoctor',
+                      'title': 'Agenda de Turnos',
+                      'translate': 'Agenda de Turnos',
+                      'type' : 'item',
+                      'url'  : '/calendar',
+                      'icon': 'today'
                     }
                 ]
             },
@@ -63,7 +71,7 @@ export class FuseNavigationModel implements FuseNavigationModelInterface
                     }
                 ]
             },
-			      {
+            {
                 'id'      : 'setting',
                 'title'   : 'Ajustes',
                 'translate': 'Ajustes',

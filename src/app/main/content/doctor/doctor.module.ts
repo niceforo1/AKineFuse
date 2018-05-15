@@ -11,7 +11,8 @@ const routes = [
     {path     : 'add-doctor', component: AddDoctorComponent},
     {path     : 'add-doctor2', component: AddDoctorComponent2},
     {path     : 'list-doctors', component: ListDoctorComponent},
-    {path     : 'edit-doctors/:id', component: EditDoctorComponent}
+    {path     : 'edit-doctors/:id', component: EditDoctorComponent},
+    {path     : 'calendar', loadChildren: './calendar/calendar.module#FuseCalendarModule' },
 ];
 
 @NgModule({
