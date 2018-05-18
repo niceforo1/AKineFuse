@@ -28,8 +28,7 @@
 
             <div class="title">INGRESE A SU CUENTA</div>
 
-            <form name="loginForm" [formGroup]="loginForm" novalidate>
-
+            <form name="loginForm" [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit()">
                 <mat-form-field>
                     <input matInput placeholder="Email" formControlName="email">
                     <mat-error *ngIf="loginFormErrors.email.required">
@@ -52,37 +51,14 @@
                     <mat-checkbox class="remember-me" aria-label="Remember Me">
                         Recuerdarme
                     </mat-checkbox>
-
-                    <!--<a class="forgot-password" [routerLink]="'/pages/auth/forgot-password-2'">-->
-                        <!--Forgot Password?-->
-                    <!--</a>-->
                 </div>
-                <button mat-raised-button color="accent" class="submit-button" aria-label="LOGIN" routerLink="/dashboard"
-                        [disabled]="loginForm.invalid">
+                <mat-error *ngIf="gralError">
+                    {{gralError}}
+                </mat-error>
+                <button mat-raised-button color="accent" class="submit-button" aria-label="LOGIN" [disabled]="loginForm.invalid" type="submit">
                     Inciar Sesión
                 </button>
             </form>
-
-            <!--<div class="separator">-->
-                <!--<span class="text">OR</span>-->
-            <!--</div>-->
-
-            <!--<div fxLayout="column" fxLayoutAlign="start center">-->
-
-                <!--<button mat-raised-button class="google">-->
-                    <!--Log in with Google-->
-                <!--</button>-->
-
-                <!--<button mat-raised-button class="facebook">-->
-                    <!--Log in with Facebook-->
-                <!--</button>-->
-
-            <!--</div>-->
-
-            <!--<div class="register" fxLayout="column" fxLayoutAlign="center center">-->
-                <!--<span class="text">Don't have an account?</span>-->
-                <!--<a class="link" [routerLink]="'/pages/auth/register-2'">Create an account</a>-->
-            <!--</div>-->
         </div>
     </div>
 </div>

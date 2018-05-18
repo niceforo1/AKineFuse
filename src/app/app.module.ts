@@ -16,43 +16,45 @@ import { PatientModule } from './main/content/patient/patient.module';
 import { DialogModule } from './main/content/dialog/dialog.module';
 import { DialogSocInsModule } from './main/content/socialInsurance/dialogSocIns.module';
 import { AlertModule } from './main/content/alerts/alert.module';
+import { LoginModule } from './main/content/login/login.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { FuseProjectDashboardModule } from './main/content/dashboards/project/project.module';
 
 const appRoutes: Routes = [
-    {
-        path: '**',
-        redirectTo: '/pages/auth/login-2'
-    },
-    {
-        path: 'pages',
-        loadChildren: './main/content/pages/pages.module#FusePagesModule'
-    }
+  // {
+  //     path: '**',
+  //     redirectTo: '/pages/auth/login-2'
+  // },
+  // {
+  //   path: 'pages',
+  //   loadChildren: './main/content/pages/pages.module#FusePagesModule'
+  // }
 ];
 
 @NgModule({
-    declarations: [AppComponent],
-    imports: [
-        BrowserModule,
-        HttpClientModule,
-        BrowserAnimationsModule,
-        RouterModule.forRoot(appRoutes),
-        SharedModule,
-        TranslateModule.forRoot(),
-        FuseMainModule,
-        FuseSampleModule,
-        FuseProjectDashboardModule,
-        DoctorModule,
-        PatientModule,
-        DialogModule,
-        DialogSocInsModule,
-        AlertModule
-    ],
-    providers: [
-        FuseSplashScreenService,
-        FuseConfigService,
-        FuseNavigationService
-    ],
-    bootstrap: [AppComponent]
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    RouterModule.forRoot(appRoutes),
+    SharedModule,
+    TranslateModule.forRoot(),
+    FuseMainModule,
+    FuseSampleModule,
+    FuseProjectDashboardModule,
+    DoctorModule,
+    PatientModule,
+    DialogModule,
+    DialogSocInsModule,
+    AlertModule,
+    LoginModule
+  ],
+  providers: [
+    FuseSplashScreenService,
+    FuseConfigService,
+    FuseNavigationService
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

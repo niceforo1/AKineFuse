@@ -1,1 +1,8 @@
+
+<fuse-login (isLogged)="logged($event)" *ngIf="!isLogged">
+</fuse-login>
+
+<div *ngIf="isLogged">
 <fuse-main></fuse-main>
+
+</div>
