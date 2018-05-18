@@ -83,6 +83,5 @@ export class FuseLoginComponent implements OnInit {
           this.gralError = err.error.message;
         }
       );
-    //window.location.href = 'http://localhost:4200/dashboard';
   }
 }

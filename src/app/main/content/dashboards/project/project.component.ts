@@ -1,6 +1,6 @@
-import {Component, ViewEncapsulation} from '@angular/core';
-import {DashboardService} from '../../../services/dashboard.service';
-import {fuseAnimations} from '../../../../core/animations';
+import { Component, ViewEncapsulation } from '@angular/core';
+import { DashboardService } from '../../../services/dashboard.service';
+import { fuseAnimations } from '../../../../core/animations';
 
 @Component({
   selector: 'fuse-project',
@@ -9,12 +9,11 @@ import {fuseAnimations} from '../../../../core/animations';
   encapsulation: ViewEncapsulation.None,
   animations: fuseAnimations
 })
-export class FuseProjectComponent{
+export class FuseProjectComponent {
   data: any;
   widgets: any = {};
   widget1: any = {};
   widget2: any = {};
-
 
   constructor(private dashboardService: DashboardService) {
     this.data = this.dashboardService.widgetsData;
@@ -26,11 +25,11 @@ export class FuseProjectComponent{
       title: 'Total',
       data: {
         label: 'Licenciados',
-        count: this.data.professionalCountTotal,
+        count: this.data.professionalCountTotal
       },
       data1: {
         label: 'Pacientes',
-        count: this.data.patientCountTotal,
+        count: this.data.patientCountTotal
       }
     };
 
@@ -42,15 +41,14 @@ export class FuseProjectComponent{
 
     this.widget2 = {
       title: 'Pacientes por O.S.',
-      showLegend   : false,
+      showLegend: false,
       explodeSlices: false,
-      labels       : true,
-      doughnut     : true,
-      gradient     : false,
-      scheme       : {
+      labels: true,
+      doughnut: true,
+      gradient: false,
+      scheme: {
         domain: ['#f44336', '#9c27b0', '#03a9f4', '#e91e63']
       }
     };
   }
 }
-

@@ -22,12 +22,28 @@ export class FuseNavigationModel implements FuseNavigationModelInterface
                         'icon': 'person_outline'
                     },
                     {
+                        'id'   : 'addDoctor2',
+                        'title': 'Agregar Licenciado2',
+                        'translate': 'Agregar Licenciado2',
+                        'type' : 'item',
+                        'url'  : '/add-doctor2',
+                        'icon': 'person_outline'
+                    },
+                    {
                         'id'   : 'listDoctors',
                         'title': 'Listar Licenciados',
                         'translate': 'Listar Licenciados',
                         'type' : 'item',
                         'url'  : '/list-doctors',
                         'icon': 'people_outline'
+                    },
+                    {
+                      'id'   : 'scheduleDoctor',
+                      'title': 'Agenda de Turnos',
+                      'translate': 'Agenda de Turnos',
+                      'type' : 'item',
+                      'url'  : '/calendar',
+                      'icon': 'today'
                     }
                 ]
             },
@@ -52,6 +68,30 @@ export class FuseNavigationModel implements FuseNavigationModelInterface
                         'type' : 'item',
                         'url'  : '/list-patients',
                         'icon': 'people'
+                    }
+                ]
+            },
+            {
+                'id'      : 'setting',
+                'title'   : 'Ajustes',
+                'translate': 'Ajustes',
+                'type'    : 'group',
+                'children': [
+                    {
+                        'id'   : 'addSocialInsurance',
+                        'title': 'Agregar Obras Sociales',
+                        'translate': 'Agregar Obras Sociales',
+                        'type' : 'item',
+                        'url'  : '/add-social-insurance',
+                        'icon': 'work'
+                    },
+                    {
+                        'id'   : 'listSocialInsurances',
+                        'title': 'Listar de Obras Sociales',
+                        'translate': 'Listar de Obras Sociales',
+                        'type' : 'item',
+                        'url'  : '/list-social-insurances',
+                        'icon': 'work'
                     }
                 ]
             },

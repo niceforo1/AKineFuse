@@ -10,6 +10,7 @@ import { Component } from '@angular/core';
 export class DialogConfigComponent {
   dialogGuardarDoctor: any;
   dialogGuardarPatient: any;
+  dialogGuardarSocialInsurance: any;
   dialogDuplicadoDni: any;
   dialogConfirmBorrar: any;
   dialogErrorGenerico: any;
@@ -29,6 +30,14 @@ export class DialogConfigComponent {
       type: 'G',
       navigate: '/list-patients'
     };
+    this.dialogGuardarSocialInsurance = {
+      title: 'Guardar',
+      message: 'La Obra Social ha sido guardado correctamente.',
+      btnCancelar: 'false',
+      type: 'G',
+      navigate: '/list-social-insurances'
+    };
+
     this.dialogDuplicadoDni = {
       title: 'Error',
       message: 'Ya se encuentra registrada una persona con el DNI ingresado.',

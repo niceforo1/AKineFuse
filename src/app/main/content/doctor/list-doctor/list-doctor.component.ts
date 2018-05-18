@@ -6,59 +6,68 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { ProfessionalService } from '../../../services/professional.service';
 
 /*Dialog*/
-import { DialogConfigComponent }from '../../dialog/dialogConfig.component';
+import { DialogConfigComponent } from '../../dialog/dialogConfig.component';
 /*Alert*/
 import { AlertComponent } from '../../alerts/alert.component';
 
 @Component({
   selector: 'app-list-doctor',
   templateUrl: './list-doctor.component.html',
-  styleUrls  : ['list-doctor.css'],
-  providers: [
-    ProfessionalService,
-    DialogConfigComponent,
-    AlertComponent
-  ]
+  styleUrls: ['list-doctor.css'],
+  providers: [ProfessionalService, DialogConfigComponent, AlertComponent]
 })
 export class ListDoctorComponent implements OnInit {
-  professional : any;
+  professional: any;
   professionals: any;
-  displayedColumns = ['name','lastName','birthDate', 'gender', 'action'];
-  dataSource :any;
+  displayedColumns = ['name', 'lastName', 'birthDate', 'gender', 'action'];
+  dataSource: any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _professionalService: ProfessionalService, private router: Router,
-              private dialog: DialogConfigComponent, public alert: AlertComponent) {
-  }
+  constructor(
+    private _professionalService: ProfessionalService,
+    private dialog: DialogConfigComponent,
+    public alert: AlertComponent
+  ) {}
 
   ngOnInit() {
-        this.professionals = this.getProfessionals();
+    this.professionals = this.getProfessionals();
   }
 
   getProfessionals() {
-    this._professionalService.getProfessional().subscribe( response  => {
-      this.professionals = response;
-      this.dataSource = new MatTableDataSource(this.professionals.map(dato => {return Object.assign(dato, {'action':'action'})}));
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    },
-    err => {
-      this.alert.openErrorSnackBar(this.alert.genericError);
-    });
+    this._professionalService.getProfessional().subscribe(
+      response => {
+        this.professionals = response;
+        this.dataSource = new MatTableDataSource(
+          this.professionals.map(dato => {
+            return Object.assign(dato, { action: 'action' });
+          })
+        );
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      err => {
+        this.alert.openErrorSnackBar(this.alert.genericError);
+      }
+    );
   }
 
-  deleteProfessional(doctor, i){
-    let dialogRef = this.dialog.openConfirmDialog(this.dialog.dialogConfirmBorrar);
+  deleteProfessional(doctor, i) {
+    let dialogRef = this.dialog.openConfirmDialog(
+      this.dialog.dialogConfirmBorrar
+    );
     dialogRef.afterClosed().subscribe(result => {
-        if(result == 1){
-          this._professionalService.deleteProfessional(doctor._id).subscribe(response => {
+      if (result == 1) {
+        this._professionalService.deleteProfessional(doctor._id).subscribe(
+          response => {
             this.getProfessionals();
-            if(!this.paginator.hasNextPage()){
-              let num = Math.trunc(this.paginator.length / this.paginator.pageSize);
-              if(num > 0){
+            if (!this.paginator.hasNextPage()) {
+              let num = Math.trunc(
+                this.paginator.length / this.paginator.pageSize
+              );
+              if (num > 0) {
                 this.paginator.pageIndex = num - 1;
-              } else if(num = 0){
+              } else if ((num = 0)) {
                 this.paginator.pageIndex = num;
               }
             }
@@ -68,23 +77,15 @@ export class ListDoctorComponent implements OnInit {
           },
           err => {
             this.alert.openErrorSnackBar(this.alert.genericError);
-          });
-        };
-      });
-    }
-
-  applyFilter(filterValue: string){
-      filterValue = filterValue.trim(); // Remove whitespace
-      filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
-      this.dataSource.filter = filterValue;
+          }
+        );
+      }
+    });
   }
 
-  /*asClick(doctor, i){
-    //this.professionals.splice(0, 1);
-    console.log(doctor, i);
-    this.dataSource.data.splice(i,1);
-    this.dataSource = new MatTableDataSource<Element>(this.dataSource.data);
-    console.log(this.dataSource.data)
-  }*/
-
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+  }
 }

@@ -7,30 +7,23 @@ import { FuseWidgetModule } from '../../../../core/components/widget/widget.modu
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 const routes: Routes = [
-    {
-        path     : 'dashboard',
-        component: FuseProjectComponent,
-        resolve  : {
-            data: DashboardService
-        }
+  {
+    path: 'dashboard',
+    component: FuseProjectComponent,
+    resolve: {
+      data: DashboardService
     }
+  }
 ];
 
 @NgModule({
-    imports     : [
-        SharedModule,
-        RouterModule.forChild(routes),
-        FuseWidgetModule,
-        NgxChartsModule
-    ],
-    declarations: [
-        FuseProjectComponent
-    ],
-    providers   : [
-      DashboardService
-    ]
+  imports: [
+    SharedModule,
+    RouterModule.forChild(routes),
+    FuseWidgetModule,
+    NgxChartsModule
+  ],
+  declarations: [FuseProjectComponent],
+  providers: [DashboardService]
 })
-export class FuseProjectDashboardModule
-{
-}
-
+export class FuseProjectDashboardModule {}

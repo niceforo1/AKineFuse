@@ -13,20 +13,30 @@ import {
 export class AlertComponent {
   horizontalPosition: MatSnackBarHorizontalPosition;
   verticalPosition: MatSnackBarVerticalPosition;
-  errorDuplicado: any;
-  successProfessional: any;
-  successPatient: any;
+  // GENERIC //
   genericError: any;
   genericDeleteOk: any;
-  successSocIns : any;
+  // ENTITIES - SUCCESS //
+  errorDocumentoDuplicado: any;
+  errorNameDuplicado: any;
+  // ENTITIES - ERRORS //
+  successSocIns: any;
+  successProfessional: any;
+  successPatient: any;
 
   constructor(public snackBar: MatSnackBar, private _router: Router) {
     this.horizontalPosition = 'center';
     this.verticalPosition = 'top';
 
-    this.errorDuplicado = {
-      message: 'Ya se encuentra registrada una persona con el DNI ingresado.'
+    // GENERIC //
+    this.genericError = {
+      message: 'Se ha producido un error, intente nuevamente.'
     };
+    this.genericDeleteOk = {
+      message: 'El registro fue borrado correctamente.'
+    };
+
+    // ENTITIES - SUCCESS //
     this.successProfessional = {
       message: 'El profesional fue guardado correctamente.',
       navigate: '/list-doctors'
@@ -36,14 +46,17 @@ export class AlertComponent {
       navigate: '/list-patients'
     };
     this.successSocIns = {
-      message: 'La obra social fue guardada correctamente.'
+      message: 'La obra social fue guardada correctamente.',
+      navigate: '/list-social-insurances'
     };
-    this.genericError = {
-      message: 'Se ha producido un error, intente nuevamente.'
+    // ENTITIES - ERRORS //
+    this.errorDocumentoDuplicado = {
+      message: 'Ya se encuentra registrada una persona con el DNI ingresado.'
     };
-    this.genericDeleteOk = {
-      message: 'El registro fue borrado correctamente.'
+    this.errorNameDuplicado = {
+      message: 'Ya se encuentra registrado ese nombre ingresado.'
     };
+
   }
 
   openErrorSnackBar(config: any) {
