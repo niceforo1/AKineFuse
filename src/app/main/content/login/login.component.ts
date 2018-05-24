@@ -74,7 +74,8 @@ export class FuseLoginComponent implements OnInit {
       .subscribe(
         data => {
           console.log('DATA', data);
-          localStorage.setItem('token', JSON.stringify(data.token));
+          console.log('DATA-tok', data['token']);
+          localStorage.setItem('token', JSON.stringify(data['token']));
           this.isLogged.emit({ isLogged: true });
         },
         err => {
